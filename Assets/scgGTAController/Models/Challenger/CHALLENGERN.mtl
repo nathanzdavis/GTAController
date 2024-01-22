@@ -1,0 +1,1342 @@
+# 
+# Wavefront material file
+# Converted by the DEEP Exploration  Deep Exploration 5.5 5.5.3.2642 Release
+# Right Hemisphere, LTD
+# http://www.righthemisphere.com/
+# 
+
+newmtl Badging_Chrome
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd CHALLENGERN BADGING.png
+map_bump CHALLENGERN BADGING NORMAL.png
+bump CHALLENGERN BADGING NORMAL.png
+map_opacity CHALLENGERN BADGING MASK.png
+map_d CHALLENGERN BADGING MASK.png
+refl CHALLENGERN BADGING MASK.png
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Body_paint
+Ka 0.819608 0.494118 0.14902
+Kd 0.819608 0.494118 0.14902
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Base
+Ka 0 0 0
+Kd 0 0 0
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__580
+Ka 0.588 0.588 0.588
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 36.7583
+d 0.71
+map_Kd CHALLENGERN BRAKELIGHT.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl chrome
+Ka 0.588 0.588 0.588
+Kd 0.588 0.588 0.588
+Ks 0.9 0.9 0.9
+illum 2
+Ns 42.2243
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Badging_Chrome0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd CHALLENGERN BADGING.png
+map_bump CHALLENGERN BADGING NORMAL.png
+bump CHALLENGERN BADGING NORMAL.png
+map_opacity CHALLENGERN BADGING MASK.png
+map_d CHALLENGERN BADGING MASK.png
+refl CHALLENGERN BADGING MASK.png
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Black
+Ka 0 0 0
+Kd 0 0 0
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__603
+Ka 0.819608 0.494118 0.14902
+Kd 0.819608 0.494118 0.14902
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__604
+Ka 0.819608 0.494118 0.14902
+Kd 0.819608 0.494118 0.14902
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Bottom
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd BOTTOM.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc_Chrome
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Body
+Ka 0 0 0
+Kd 0 0 0
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc_Chrome0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc_Chrome1
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 9.84915
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__605
+Ka 0.819608 0.494118 0.14902
+Kd 0.819608 0.494118 0.14902
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__606
+Ka 0.819608 0.494118 0.14902
+Kd 0.819608 0.494118 0.14902
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__586
+Ka 0.588 0.588 0.588
+Kd 0.588 0.588 0.588
+Ks 0.9 0.9 0.9
+illum 2
+Ns 39.3966
+d 0.42
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Bottom0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd BOTTOM.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc_Chrome2
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 17.1484
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl BumperF
+Ka 0 0 0
+Kd 0 0 0
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl DoorLine
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd DOORLINE.png
+map_bump 
+bump 
+map_opacity DOORLINE MASK.png
+map_d DOORLINE MASK.png
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Badging_Chrome1
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd CHALLENGERN BADGING.png
+map_bump CHALLENGERN BADGING NORMAL.png
+bump CHALLENGERN BADGING NORMAL.png
+map_opacity CHALLENGERN BADGING MASK.png
+map_d CHALLENGERN BADGING MASK.png
+refl CHALLENGERN BADGING MASK.png
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl BumperFB
+Ka 0 0 0
+Kd 0 0 0
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc_Chrome3
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc1
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 36.7583
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc2
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 18.3792
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__608
+Ka 0.819608 0.494118 0.14902
+Kd 0.819608 0.494118 0.14902
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Bottom1
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd BOTTOM.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc_Chrome4
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 21.1121
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl BumperR
+Ka 0 0 0
+Kd 0 0 0
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl DoorLine0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd DOORLINE.png
+map_bump 
+bump 
+map_opacity DOORLINE MASK.png
+map_d DOORLINE MASK.png
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc3
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__609
+Ka 0.819608 0.494118 0.14902
+Kd 0.819608 0.494118 0.14902
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Door
+Ka 0 0 0
+Kd 0 0 0
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Driver
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd DRIVER.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc_Chrome5
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc4
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc5
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Exhaust
+Ka 0 0 0
+Kd 0 0 0
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Interior
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd CHALLENGERN INTERIOR.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Interior0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd CHALLENGERN INTERIOR.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Interior1
+Ka 0 0 0
+Kd 0 0 0
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__589
+Ka 0.588 0.588 0.588
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 21.1121
+map_Kd CHALLENGERN HEADLIGHT.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__590
+Ka 0.588 0.588 0.588
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 90.5097
+map_Kd CHALLENGERN HEADLIGHT.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl HeadLights
+Ka 0.588 0.588 0.588
+Kd 0.588 0.588 0.588
+Ks 0.9 0.9 0.9
+illum 2
+Ns 21.1121
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__591
+Ka 0.588 0.588 0.588
+Kd 0.588 0.588 0.588
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+d 0.37
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc_Chrome6
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc6
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 17.1484
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Body_paint0
+Ka 0.819608 0.494118 0.14902
+Kd 0.819608 0.494118 0.14902
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Hood
+Ka 0 0 0
+Kd 0 0 0
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__593
+Ka 0.588 0.588 0.588
+Kd 0.588 0.588 0.588
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc7
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Mirror
+Ka 0.588 0.588 0.588
+Kd 0.588 0.588 0.588
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc8
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Body_paint1
+Ka 0.819608 0.494118 0.14902
+Kd 0.819608 0.494118 0.14902
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Roof
+Ka 0 0 0
+Kd 0 0 0
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc9
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Body_paint2
+Ka 0.819608 0.494118 0.14902
+Kd 0.819608 0.494118 0.14902
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Bottom2
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd BOTTOM.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Skirt
+Ka 0 0 0
+Kd 0 0 0
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Interior2
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 4
+map_Kd CHALLENGERN INTERIOR.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__596
+Ka 0.588 0.588 0.588
+Kd 0.588 0.588 0.588
+Ks 0.9 0.9 0.9
+illum 2
+Ns 14.9285
+d 0.45
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__597
+Ka 0.25098 0.25098 0.25098
+Kd 0.25098 0.25098 0.25098
+Ks 0.9 0.9 0.9
+illum 2
+Ns 22.6274
+d 0.83
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Wind
+Ka 0.588 0.588 0.588
+Kd 0.588 0.588 0.588
+Ks 0.9 0.9 0.9
+illum 2
+Ns 14.9285
+d 0.45
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__598
+Ka 0.588 0.588 0.588
+Kd 0.588 0.588 0.588
+Ks 0.9 0.9 0.9
+illum 2
+Ns 42.2243
+d 0.37
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__599
+Ka 0.588 0.588 0.588
+Kd 0.588 0.588 0.588
+Ks 0.9 0.9 0.9
+illum 2
+Ns 25.9921
+d 0.46
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Brake_Disc
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 12.1257
+map_Kd Disc Brake 1.png
+map_bump 
+bump 
+map_opacity Disc Brake.png
+map_d Disc Brake.png
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Brake_Disc0
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 12.996
+map_Kd Disc Brake 1.png
+map_bump 
+bump 
+map_opacity Disc Brake.png
+map_d Disc Brake.png
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Rotor
+Ka 0 0 0
+Kd 0 0 0
+Ks 0.9 0.9 0.9
+illum 2
+Ns 12.1257
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Tire
+Ka 0.192157 0.192157 0.192157
+Kd 1 1 1
+Ks 1 1 1
+illum 2
+Ns 5.65685
+map_Kd TIRE.png
+map_bump TIRE BUMP.png
+bump TIRE BUMP.png
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Tire_Back
+Ka 0.192157 0.192157 0.192157
+Kd 0.192157 0.192157 0.192157
+Ks 1 1 1
+illum 2
+Ns 5.65685
+map_Kd 
+map_bump 
+bump 
+map_opacity TIREBACK.png
+map_d TIREBACK.png
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__600
+Ka 0.588 0.588 0.588
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 55.7152
+map_Kd CHALLENGERN RIM.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__6000
+Ka 0.588 0.588 0.588
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 55.7152
+map_Kd CHALLENGERN RIM.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Material__6001
+Ka 0.588 0.588 0.588
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 55.7152
+map_Kd CHALLENGERN RIM.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Tire0
+Ka 0.192157 0.192157 0.192157
+Kd 0.192157 0.192157 0.192157
+Ks 1 1 1
+illum 2
+Ns 5.65685
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Brake_Pads
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 34.2967
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc_Chrome7
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Misc10
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 14.9285
+map_Kd CHALLENGERN MISC.png
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Body_paint3
+Ka 0.819608 0.494118 0.14902
+Kd 0.819608 0.494118 0.14902
+Ks 0.9 0.9 0.9
+illum 2
+Ns 32
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl Hood_Carbon
+Ka 0 0 0
+Kd 0 0 0
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd 
+map_bump 
+bump 
+map_opacity 
+map_d 
+refl 
+map_kS 
+map_kA 
+map_Ns 
+
+newmtl License
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.9 0.9 0.9
+illum 2
+Ns 64
+map_Kd LICENSE.png
+map_bump 
+bump 
+map_opacity LICENSE MASK.png
+map_d LICENSE MASK.png
+refl LICENSE MASK.png
+map_kS 
+map_kA 
+map_Ns 
