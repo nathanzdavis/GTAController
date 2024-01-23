@@ -3148,7 +3148,7 @@ Animator:
   m_GameObject: {fileID: 8520466889614709547}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 3505df4d66e70304a8f1a5fd80ee332c, type: 3}
-  m_Controller: {fileID: 9100000, guid: 8c7f6eba41134104b80f238bc0e19502, type: 2}
+  m_Controller: {fileID: 9100000, guid: c5a5c48d1ec275943ac8a79732dc233e, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3231,7 +3231,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 16
   m_ObstacleAvoidanceType: 4
 --- !u!54 &8520466889614709558
 Rigidbody:
@@ -3274,7 +3274,7 @@ MonoBehaviour:
   shootSound: {fileID: 8300000, guid: 4a21f2ccf76878b489081fef08c81ecc, type: 3}
   alerted: 0
   gunModel: {fileID: 5617465295523392466}
-  damage: 15
+  damage: 1
 --- !u!82 &4893151562596835808
 AudioSource:
   m_ObjectHideFlags: 0

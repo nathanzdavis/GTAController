@@ -49,9 +49,6 @@ namespace scgGTAController
 
         [Header("Shooting")]
         public ParticleSystem[] muzzleFlashes;
-        public GameObject shootPoint;
-        private GameObject shootPointCamera;
-        public bool shootFromCamera;
         public GameObject ejectionPoint;
         public GameObject magDropPoint;
         public GameObject Bullet;
@@ -132,7 +129,6 @@ namespace scgGTAController
         private void Start()
         {
             mainCam = Camera.main.gameObject;
-            shootPointCamera = mainCam;
             lookTarget = GameObject.FindGameObjectWithTag("camControl").transform.GetChild(0);
 
             //Set the ammo count
@@ -197,6 +193,7 @@ namespace scgGTAController
 
                 //Alert nearby cops when shooting
                 PoliceManager.instance.CheckAlertAllNearbyCops();
+                NPCManager.instance.CheckAlert(transform);
             }
 
             if (Input.GetButtonUp("Fire1") || bulletsInMag == 0)
@@ -402,18 +399,10 @@ namespace scgGTAController
         void spawnBullet()
         {
             GameObject tempBullet;
-            if (shootFromCamera)
-            {
-                //Spawn bullet from the camera shoot point position, not from the true tip of the gun
-                tempBullet = Instantiate(Bullet, shootPointCamera.transform.position, shootPointCamera.transform.localRotation) as GameObject;
-                tempBullet.GetComponent<RegisterHit>().damage = Damage;
-            }
-            else
-            {
-                //Spawn bullet from the shoot point position, the true tip of the gun
-                tempBullet = Instantiate(Bullet, shootPoint.transform.position, shootPoint.transform.rotation) as GameObject;
-                tempBullet.GetComponent<RegisterHit>().damage = Damage;
-            }
+
+            //Spawn bullet from the shoot point position, the true tip of the gun
+            tempBullet = Instantiate(Bullet, mainCam.transform.GetChild(0).transform.position, mainCam.transform.GetChild(0).transform.rotation) as GameObject;
+            tempBullet.GetComponent<RegisterHit>().damage = Damage;
 
             //Orient it
             tempBullet.transform.Rotate(Vector3.left * 90);
@@ -421,16 +410,7 @@ namespace scgGTAController
             //Add forward force based on where camera is pointing
             Rigidbody tempRigidBody;
             tempRigidBody = tempBullet.GetComponent<Rigidbody>();
-
-            if (shootFromCamera)
-            {
-                //Always shoot towards where camera is facing
-                tempRigidBody.AddForce(shootPointCamera.transform.forward * bulletVelocity);
-            }
-            else
-            {
-                tempRigidBody.AddForce(shootPoint.transform.forward * bulletVelocity);
-            }
+            tempRigidBody.AddForce(mainCam.transform.GetChild(0).transform.forward * bulletVelocity);
 
             //Destroy after time
             Destroy(tempBullet, bulletDespawnTime);

@@ -118,8 +118,9 @@ namespace KovSoft.RagdollTemplate.Scripts.Charachter
 			{
 				_jumpStartedTime = Time.time;
 			}
-			_airVelocity = finalVelocity;		// i need this to correctly detect player velocity in air mode
-			_rigidbody.velocity = finalVelocity;
+			_airVelocity = finalVelocity;       // i need this to correctly detect player velocity in air mode
+            if (!GetComponent<Rigidbody>().isKinematic)
+                _rigidbody.velocity = finalVelocity;
 		}
 	}
 }

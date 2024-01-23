@@ -20,6 +20,7 @@ public class AIController : MonoBehaviour
     private bool isMoving = false;
     private bool isPlayerNear = false;
     private Animator anim;
+    private bool alerted;
 
     // Reference to PoliceAIBehavior
     private PoliceAIBehavior policeAI;
@@ -47,17 +48,17 @@ public class AIController : MonoBehaviour
     {
         if (!isPaused)
         {
-            // If the cop is alerted, move toward the player using PoliceAIBehavior
             if (policeAI != null && policeAI.alerted)
             {
+                // If the cop is alerted, move toward the player using PoliceAIBehavior
                 MoveTowardsPlayer();
             }
-            else
+            else if (!alerted)
             {
                 Patrol();
             }
         }
-
+        anim.SetBool("Alerted", alerted && navMeshAgent.velocity.magnitude >= .5f);
         anim.SetBool("Moving", isMoving && navMeshAgent.velocity.magnitude >= .5f);
     }
 
@@ -126,12 +127,64 @@ public class AIController : MonoBehaviour
         currentWaypointIndex = Random.Range(0, waypoints.Count);
         targetWaypoint = waypoints[currentWaypointIndex];
         navMeshAgent.SetDestination(targetWaypoint.position);
+        StartCoroutine(ResetSpeedAfterRandomWaypoint());
+    }
+
+    private void SetRandomDirection()
+    {
+        // Generate a random direction
+        Vector3 randomDirection = Random.insideUnitSphere.normalized * 25f;
+
+        // Set the distance to at least 25 meters
+        randomDirection.y = 0f;
+
+        // Calculate the target position
+        Vector3 targetPosition = transform.position + randomDirection;
+
+        // Set the NavMeshAgent destination directly
+        navMeshAgent.SetDestination(targetPosition);
+
+        navMeshAgent.speed = 3f;
+
+        // Optionally, reset speed after reaching the random waypoint
+        StartCoroutine(ResetSpeedAfterRandomWaypoint());
+    }
+
+    private IEnumerator ResetSpeedAfterRandomWaypoint()
+    {
+        yield return new WaitForSeconds(15f);
+        // Wait until the AI reaches the random waypoint
+        navMeshAgent.speed = 1.75f; // Set the speed back to 1.75 after reaching the random waypoint
+        alerted = false;
+    }
+
+    public void Alert()
+    {
+        if (!GetComponent<PoliceAIBehavior>() && !alerted)
+        {
+            alerted = true;
+            navMeshAgent.isStopped = false;
+            isPaused = false;
+
+            StopAllCoroutines();
+
+            // Set the area mask to include the specified layer only if it's not already included
+            int areaMask = navMeshAgent.areaMask;
+            int roadArea = 1 << NavMesh.GetAreaFromName("Road");
+
+            if ((areaMask & roadArea) == 0)
+            {
+                areaMask += roadArea;
+                navMeshAgent.areaMask = areaMask;
+            }
+
+            SetRandomDirection();
+        }
     }
 
     public void AvoidPlayer()
     {
         anim.SetTrigger("PlayerReaction");
-
         StartCoroutine(AvoidanceDelay());
     }
 

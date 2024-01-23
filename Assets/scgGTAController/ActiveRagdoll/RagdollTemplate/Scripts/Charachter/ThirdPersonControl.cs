@@ -135,6 +135,7 @@ namespace KovSoft.RagdollTemplate.Scripts.Charachter
 			{
 				punchSensing.Damage(punchSensing.targetPlayer);
 				PoliceManager.instance.CheckAlertAllNearbyCops();
+				NPCManager.instance.CheckAlert(transform);
             }
         }
 	}

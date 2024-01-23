@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using scgGTAController;
+using UnityEngine.AI;
 
 public class PoliceAIBehavior : MonoBehaviour
 {
@@ -70,14 +71,15 @@ public class PoliceAIBehavior : MonoBehaviour
 
     public void CheckForAlert()
     {
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-        // Check if the player is within alert distance
-        alerted = (distanceToPlayer < alertDistance);
-
-        // Reset reloading when player is not in range
         if (!alerted)
         {
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+            // Check if the player is within alert distance
+            alerted = (distanceToPlayer < alertDistance);
+
+            // Reset reloading when player is not in range
+
             reloading = false;
             // Reset animation parameters when not alerted
             anim.SetBool("Alerted", false);
@@ -85,7 +87,7 @@ public class PoliceAIBehavior : MonoBehaviour
             shootDelayApplied = false;
             // Reset the offsetRotation to the spine
             GetComponentInChildren<OffsetRotation>().enabled = false;
-            //Hide the gun model
+            // Hide the gun model
             gunModel.SetActive(true);
         }
         else
@@ -94,8 +96,18 @@ public class PoliceAIBehavior : MonoBehaviour
             anim.SetBool("Alerted", true);
             // Set the offsetRotation to the spine
             GetComponentInChildren<OffsetRotation>().enabled = true;
-            //Show the gun model
+            // Show the gun model
             gunModel.SetActive(true);
+
+            // Set the area mask to include the specified layer only if it's not already included
+            int areaMask = GetComponent<NavMeshAgent>().areaMask;
+            int roadArea = 1 << NavMesh.GetAreaFromName("Road");
+
+            if ((areaMask & roadArea) == 0)
+            {
+                areaMask += roadArea;
+                GetComponent<NavMeshAgent>().areaMask = areaMask;
+            }
         }
     }
 
@@ -140,9 +152,6 @@ public class PoliceAIBehavior : MonoBehaviour
 
                 // Play shoot sound
                 GetComponent<AudioSource>().PlayOneShot(shootSound);
-
-                //Alert nearby cops when shooting
-                PoliceManager.instance.CheckAlertAllNearbyCops();
 
                 // Decrement remainingRounds
                 remainingRounds--;

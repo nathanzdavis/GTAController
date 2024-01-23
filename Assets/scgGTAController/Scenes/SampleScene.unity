@@ -219,7 +219,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.08711987, y: -0.055860497, z: -0.0027443003}
+  m_ConnectedAnchor: {x: 0.08711982, y: -0.055860497, z: -0.0027443003}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -479,7 +479,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.08711987, y: -0.055860534, z: -0.0009750485}
+  m_ConnectedAnchor: {x: -0.087119825, y: -0.055860534, z: -0.0009750485}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -1396,7 +1396,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182766946}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 6.35}
+  m_LocalPosition: {x: 0, y: 0, z: 0.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3033,7 +3033,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 438291081}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -2.36, y: 35.070004, z: 0.000004172325}
+  m_LocalPosition: {x: -2.36, y: 35.420002, z: 0.000004172325}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5754,7 +5754,7 @@ GameObject:
   m_Name: Street
   m_TagString: gravel
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 3
   m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!64 &805450379
@@ -6047,7 +6047,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.2143888, y: 0.24613121, z: -0.0040964815}
+  m_ConnectedAnchor: {x: -0.2143887, y: 0.24613118, z: -0.0040964815}
   serializedVersion: 2
   m_SwingAxis: {x: 1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -6141,7 +6141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da69d5a798716154ba21b08a75158d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetRotationRifle: 55
+  offsetRotationRifle: 50
   offsetRotationPistol: 0
   offsetRotationNormal: 0
   rifle: 1
@@ -6252,6 +6252,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1414175928}
+  x: 1
+  y: 1
+  z: 1
 --- !u!4 &841580661
 Transform:
   m_ObjectHideFlags: 0
@@ -6831,7 +6834,8 @@ Transform:
   m_LocalPosition: {x: 0.5, y: 1.897, z: -3.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1326869434}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 9.975, y: 0, z: 0}
@@ -6976,7 +6980,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0000000055884306, y: 0.36211377, z: 0.030862175}
+  m_ConnectedAnchor: {x: -0.000000084880824, y: 0.3621138, z: 0.03086218}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -13887,7 +13891,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.000000028405339, y: 0.2610746, z: 0.00000008940697}
+  m_ConnectedAnchor: {x: 0.000000023283064, y: 0.26107448, z: 0.00000012293458}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -13966,7 +13970,7 @@ GameObject:
   m_Name: Sidewalk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 4
   m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!23 &1230167836
@@ -14396,8 +14400,8 @@ GameObject:
   m_Name: Sidewalk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_NavMeshLayer: 4
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!65 &1274774353
 BoxCollider:
@@ -14772,6 +14776,37 @@ Transform:
   m_Father: {fileID: 1223474752}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1326869433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1326869434}
+  m_Layer: 11
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1326869434
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326869433}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 3.67}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 963194228}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1328130847
 GameObject:
   m_ObjectHideFlags: 0
@@ -14851,7 +14886,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.00000002188608, y: 0.26105335, z: -0.000000007450581}
+  m_ConnectedAnchor: {x: -0.000000003259629, y: 0.26105335, z: -0.000000011175871}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -15611,8 +15646,8 @@ GameObject:
   - component: {fileID: 1465470310}
   - component: {fileID: 1465470308}
   - component: {fileID: 1465470312}
-  - component: {fileID: 1465470307}
   - component: {fileID: 1465470313}
+  - component: {fileID: 1465470307}
   m_Layer: 8
   m_Name: ThirdPersonController
   m_TagString: Player
@@ -15729,11 +15764,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1465470298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.36, y: 0.07, z: 0}
+  m_LocalPosition: {x: -2.36, y: 0.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 666242415}
+  - {fileID: 1567158335}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15749,7 +15785,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.755
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -15965,7 +16001,7 @@ MonoBehaviour:
   deadTime: 0
   isAiOrDummy: 0
   playNoiseOnHurt: 1
-  percentageToPlay: 0.5
+  percentageToPlay: 0.2
   hurtNoise: {fileID: 8300000, guid: bed546e1a0185f74681ed64b445a2814, type: 3}
   regen: 1
   timeBeforeRegen: 5
@@ -16017,7 +16053,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0.40620497, z: 9.313226e-10}
+  m_ConnectedAnchor: {x: 0.00000008195639, y: 0.40620497, z: 0.0000000018626451}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -16800,6 +16836,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a58a5ccaa75d64ba1270e838e0f75c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1567158334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1567158335}
+  m_Layer: 8
+  m_Name: ShootPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1567158335
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567158334}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 3.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1465470306}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1568141306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16881,6 +16948,50 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e1c021d414953441b1d030eea8f7c40, type: 3}
+--- !u!1 &1570139265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1570139267}
+  - component: {fileID: 1570139266}
+  m_Layer: 0
+  m_Name: NPCManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1570139266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570139265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 241e49b11415afd41b14eb7942c57d70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1570139267
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1570139265}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.9421067, y: 3.2345552, z: -17.690937}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 29
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1575977278
 GameObject:
   m_ObjectHideFlags: 0
@@ -16964,7 +17075,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -9.313226e-10, y: 0.4063854, z: 9.313226e-10}
+  m_ConnectedAnchor: {x: 0.00000011827797, y: 0.4063854, z: 0}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -17121,7 +17232,7 @@ GameObject:
   m_Name: Crosswalk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 4
   m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!64 &1601263661
@@ -18340,7 +18451,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.2143889, y: 0.2462008, z: -0.004734389}
+  m_ConnectedAnchor: {x: 0.21438901, y: 0.24620077, z: -0.0047343816}
   serializedVersion: 2
   m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -18433,6 +18544,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 271116688}
+  x: 1
+  y: 1
+  z: 1
 --- !u!1 &1843083493
 GameObject:
   m_ObjectHideFlags: 0
@@ -19202,7 +19316,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.009961451, y: 0.21813703, z: -0.018845208}
+  m_ConnectedAnchor: {x: -0.000016404594, y: 0.21813843, z: -0.023631342}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -20605,7 +20719,7 @@ GameObject:
   m_Name: Crosswalk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 4
   m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!64 &2089155603
@@ -29027,8 +29141,8 @@ MonoBehaviour:
   - {fileID: 9172997479599290540}
   - {fileID: 9172997479599290542}
   - {fileID: 9172997479599290536}
-  shootPoint: {fileID: 602165008825091718}
-  shootFromCamera: 1
+  shootPoint: {fileID: 182766946}
+  shootFromCamera: 0
   ejectionPoint: {fileID: 602165009634279557}
   magDropPoint: {fileID: 602165009368870948}
   Bullet: {fileID: 8352329729915399606, guid: 4ba7e73409a52de4094cd4f4a8cff10a, type: 3}
@@ -31494,6 +31608,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8520466889614709559, guid: 8fcb632927ee67c49be326cb296ae9a7,
+        type: 3}
+      propertyPath: m_WalkableMask
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
