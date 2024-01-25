@@ -15,7 +15,6 @@ namespace UnityStandardAssets.Vehicles.Car
         {
             if (GetComponent<AICarController>())
                 GetComponent<AICarController>().enabled = false;
-            GetComponent<CarAudio>().enabled = true;
         }
         private void OnDisable()
         {

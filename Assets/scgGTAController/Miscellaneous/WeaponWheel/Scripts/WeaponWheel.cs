@@ -216,23 +216,28 @@ namespace GTAWeaponWheel.Scripts
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKey(wheelKey))
+            if (player)
             {
-                //Enable Wheel Mode
-                EnableWheel();
-                CheckForCurrentWeapon();
-                player.GetComponent<CameraController>().lookSense = 0;
-            }else if (Input.GetKeyUp(wheelKey))
-            {
-                //Disable Wheel Mode
-                DisableWheel();
-                player.GetComponent<CameraController>().lookSense = prevSense;
-            }
+                if (Input.GetKey(wheelKey))
+                {
+                    //Enable Wheel Mode
+                    EnableWheel();
+                    CheckForCurrentWeapon();
+                    player.GetComponent<CameraController>().lookSense = 0;
+                }
+                else if (Input.GetKeyUp(wheelKey))
+                {
+                    //Disable Wheel Mode
+                    DisableWheel();
+                    player.GetComponent<CameraController>().lookSense = prevSense;
+                }
 
-            if (m_WheelEnabled)
-                Time.timeScale = Mathf.SmoothDamp(Time.timeScale, targetTimeScale, ref m_TimeV, timeToGoToTargetTimeScale);
-            else if (player.GetComponent<HealthController>().health > 0)
-                Time.timeScale = Mathf.SmoothDamp(Time.timeScale,1f, ref m_TimeV, timeToGoToTargetTimeScale);
+                if (m_WheelEnabled)
+                    Time.timeScale = Mathf.SmoothDamp(Time.timeScale, targetTimeScale, ref m_TimeV, timeToGoToTargetTimeScale);
+                else if (player.GetComponent<HealthController>().health > 0)
+                    Time.timeScale = Mathf.SmoothDamp(Time.timeScale, 1f, ref m_TimeV, timeToGoToTargetTimeScale);
+
+            }
         }
     }
 }

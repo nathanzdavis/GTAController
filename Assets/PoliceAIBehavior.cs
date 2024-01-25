@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using scgGTAController;
 using UnityEngine.AI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PoliceAIBehavior : MonoBehaviour
 {
@@ -15,25 +16,23 @@ public class PoliceAIBehavior : MonoBehaviour
     public GameObject projectilePrefab;
     public float shootingForce = 500f;
     public AudioClip shootSound;
-    public bool alerted = false;
     public GameObject gunModel;
     public int damage;
 
     private bool reloading = false;
     private int remainingRounds;
-    private Animator anim;
     private bool shootDelayApplied = false;
 
-    void Start()
+    void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        anim = GetComponent<Animator>();
+        GetComponent<AIController>().anim = GetComponent<Animator>();
         remainingRounds = roundsPerMagazine;
     }
 
     void Update()
     {
-        if (alerted && player)
+        if (GetComponent<AIController>().alerted && player)
         {
             RotateToPlayer(); // Rotate to face the player when within shooting distance
 
@@ -71,42 +70,32 @@ public class PoliceAIBehavior : MonoBehaviour
 
     public void CheckForAlert()
     {
-        if (!alerted)
+        if (!GetComponent<AIController>().alerted)
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-            // Check if the player is within alert distance
-            alerted = (distanceToPlayer < alertDistance);
-
-            // Reset reloading when player is not in range
-
-            reloading = false;
-            // Reset animation parameters when not alerted
-            anim.SetBool("Alerted", false);
-            // Reset the shoot delay flag when player is out of alert distance
-            shootDelayApplied = false;
-            // Reset the offsetRotation to the spine
-            GetComponentInChildren<OffsetRotation>().enabled = false;
-            // Hide the gun model
-            gunModel.SetActive(true);
-        }
-        else
-        {
-            // Set the alerted bool to true when alerted
-            anim.SetBool("Alerted", true);
-            // Set the offsetRotation to the spine
-            GetComponentInChildren<OffsetRotation>().enabled = true;
-            // Show the gun model
-            gunModel.SetActive(true);
-
-            // Set the area mask to include the specified layer only if it's not already included
-            int areaMask = GetComponent<NavMeshAgent>().areaMask;
-            int roadArea = 1 << NavMesh.GetAreaFromName("Road");
-
-            if ((areaMask & roadArea) == 0)
+            if (distanceToPlayer < alertDistance)
             {
-                areaMask += roadArea;
-                GetComponent<NavMeshAgent>().areaMask = areaMask;
+                // Reset reloading when player is not in range
+                reloading = false;
+                // Reset animation parameters when not alerted
+
+                // Reset the shoot delay flag when player is out of alert distance
+                shootDelayApplied = false;
+                // Reset the offsetRotation to the spine
+                GetComponentInChildren<OffsetRotation>().enabled = false;
+                // Hide the gun model
+                gunModel.SetActive(true);
+
+                // Set the offsetRotation to the spine
+                GetComponentInChildren<OffsetRotation>().enabled = true;
+                // Show the gun model
+                gunModel.SetActive(true);
+
+                // Set the cost of the road layer to 1 so agents use it as wellnow
+                NavMesh.SetAreaCost(3, 1);
+
+                GetComponent<AIController>().alerted = true;
             }
         }
     }
@@ -116,7 +105,7 @@ public class PoliceAIBehavior : MonoBehaviour
         // Wait for the specified shooting delay
         yield return new WaitForSeconds(initialShootDelay);
 
-        while (alerted && player) // Keep shooting as long as the cop is alerted
+        while (GetComponent<AIController>().alerted && player) // Keep shooting as long as the cop is alerted
         {
             // Rotate towards the player
             RotateToPlayer();
@@ -124,7 +113,7 @@ public class PoliceAIBehavior : MonoBehaviour
             // Check if it's time to reload
             if (remainingRounds <= 0 && !reloading)
             {
-                anim.SetTrigger("Reload"); // Trigger the "Reload" animation trigger
+                GetComponent<AIController>().anim.SetTrigger("Reload"); // Trigger the "Reload" animation trigger
                 reloading = true;
                 StartCoroutine(Reload());
                 shootDelayApplied = false; // Reset the shoot delay flag after reloading
@@ -135,7 +124,7 @@ public class PoliceAIBehavior : MonoBehaviour
             if (Vector3.Distance(transform.position, player.position) <= shootingDistance)
             {
                 // Trigger the "Shoot" animation trigger
-                anim.SetTrigger("Shoot");
+                GetComponent<AIController>().anim.SetTrigger("Shoot");
 
                 // Instantiate the projectile prefab at the shooting point
                 GameObject projectile = Instantiate(projectilePrefab, shootingPoint.position, shootingPoint.rotation);

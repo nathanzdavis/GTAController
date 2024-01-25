@@ -29,6 +29,7 @@ namespace scgGTAController
         public bool playNoiseOnHurt;
         public float percentageToPlay;
         public AudioClip hurtNoise;
+        public AudioSource voiceSoundSource;
 
         [Header("Regen")]
         public bool regen;
@@ -89,7 +90,7 @@ namespace scgGTAController
                 {
                     if (Random.value < percentageToPlay)
                     {
-                        GetComponent<AudioSource>().PlayOneShot(hurtNoise);
+                        voiceSoundSource.PlayOneShot(hurtNoise);
                     }
                 }
             }
@@ -105,7 +106,7 @@ namespace scgGTAController
                 {
                     if (Random.value < percentageToPlay)
                     {
-                        GetComponent<AudioSource>().PlayOneShot(hurtNoise);
+                        voiceSoundSource.PlayOneShot(hurtNoise);
                     }
                 }
 

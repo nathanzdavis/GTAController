@@ -129,7 +129,7 @@ namespace scgGTAController
         private void Start()
         {
             mainCam = Camera.main.gameObject;
-            lookTarget = GameObject.FindGameObjectWithTag("camControl").transform.GetChild(0);
+            lookTarget = GameObject.FindGameObjectWithTag("playerFollowObj").transform.GetChild(0);
 
             //Set the ammo count
             bulletsInMag = bulletsPerMag;

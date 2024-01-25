@@ -39,7 +39,7 @@ namespace UnityStandardAssets.Vehicles.Car
         public float highPitchMultiplier = 0.25f;                                   // Used for altering the pitch of high sounds
         public float maxRolloffDistance = 500;                                      // The maximum distance where rollof starts to take place
         public float dopplerLevel = 1;                                              // The mount of doppler effect used in the audio
-        public bool useDoppler = true;                                              // Toggle for using doppler
+        public bool useDoppler = false;                                              // Toggle for using doppler
 
         private AudioSource m_LowAccel; // Source for the low acceleration sounds
         private AudioSource m_LowDecel; // Source for the low deceleration sounds

@@ -13,7 +13,6 @@ TagManager:
   - Door
   - hud
   - hitCollider
-  - camControl
   - rubber
   - Walkable
   - car
@@ -21,6 +20,10 @@ TagManager:
   - weaponControl
   - waypoint
   - carFollowObj
+  - leftHand
+  - postProcessing
+  - directionalLight
+  - playerFollowObj
   layers:
   - Default
   - TransparentFX
@@ -37,8 +40,8 @@ TagManager:
   - ground
   - car
   - mainCamIgnore
-  - 
-  - 
+  - minimap
+  - steeringAI
   - 
   - 
   - 

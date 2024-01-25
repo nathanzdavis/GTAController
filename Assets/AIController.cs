@@ -5,13 +5,16 @@ using UnityEngine.AI;
 
 public class AIController : MonoBehaviour
 {
+    [HideInInspector] public Animator anim;
+    [HideInInspector] public bool alerted;
     public float pauseDuration = 2f;
     public float playerAvoidanceDistance = 5f;
     public float avoidanceRotationSpeed = 2f;
-
     public int randomWaypointInterval = 3;
-    private int waypointsVisitedCount = 0;
+    public AudioClip[] screams;
+    public float chanceToPlayScream;
 
+    private int waypointsVisitedCount = 0;
     private List<Transform> waypoints = new List<Transform>();
     private NavMeshAgent navMeshAgent;
     private Transform targetWaypoint;
@@ -19,8 +22,6 @@ public class AIController : MonoBehaviour
     private bool isPaused = false;
     private bool isMoving = false;
     private bool isPlayerNear = false;
-    private Animator anim;
-    private bool alerted;
 
     // Reference to PoliceAIBehavior
     private PoliceAIBehavior policeAI;
@@ -48,7 +49,7 @@ public class AIController : MonoBehaviour
     {
         if (!isPaused)
         {
-            if (policeAI != null && policeAI.alerted)
+            if (policeAI != null && alerted)
             {
                 // If the cop is alerted, move toward the player using PoliceAIBehavior
                 MoveTowardsPlayer();
@@ -58,7 +59,11 @@ public class AIController : MonoBehaviour
                 Patrol();
             }
         }
-        anim.SetBool("Alerted", alerted && navMeshAgent.velocity.magnitude >= .5f);
+        if (!GetComponent<PoliceAIBehavior>())
+            anim.SetBool("Alerted", alerted && navMeshAgent.velocity.magnitude >= .5f);
+        else
+            anim.SetBool("Alerted", alerted);
+
         anim.SetBool("Moving", isMoving && navMeshAgent.velocity.magnitude >= .5f);
     }
 
@@ -88,6 +93,7 @@ public class AIController : MonoBehaviour
         {
             // Move toward the player if PoliceAIBehavior is alerted
             navMeshAgent.SetDestination(policeAI.player.transform.position);
+
             isMoving = true;
         }
     }
@@ -152,10 +158,13 @@ public class AIController : MonoBehaviour
 
     private IEnumerator ResetSpeedAfterRandomWaypoint()
     {
-        yield return new WaitForSeconds(15f);
-        // Wait until the AI reaches the random waypoint
-        navMeshAgent.speed = 1.75f; // Set the speed back to 1.75 after reaching the random waypoint
-        alerted = false;
+        if (!GetComponent<PoliceAIBehavior>()){
+            yield return new WaitForSeconds(15f);
+            // Wait until the AI reaches the random waypoint
+            navMeshAgent.speed = 1.75f; // Set the speed back to 1.75 after reaching the random waypoint
+
+            alerted = false;
+        }
     }
 
     public void Alert()
@@ -168,18 +177,22 @@ public class AIController : MonoBehaviour
 
             StopAllCoroutines();
 
-            // Set the area mask to include the specified layer only if it's not already included
-            int areaMask = navMeshAgent.areaMask;
-            int roadArea = 1 << NavMesh.GetAreaFromName("Road");
+            // Set the cost of the road layer to 1 so agents use it as wellnow
+            NavMesh.SetAreaCost(3, 1);
 
-            if ((areaMask & roadArea) == 0)
+            if (Random.Range(0, 100) < chanceToPlayScream)
             {
-                areaMask += roadArea;
-                navMeshAgent.areaMask = areaMask;
+                StartCoroutine(PlayScreamSound());
             }
 
             SetRandomDirection();
         }
+    }
+
+    private IEnumerator PlayScreamSound()
+    {
+        yield return new WaitForSeconds(Random.Range((float)0, (float)3));
+        GetComponent<AudioSource>().PlayOneShot(screams[Random.Range(0, screams.Length - 1)]);
     }
 
     public void AvoidPlayer()

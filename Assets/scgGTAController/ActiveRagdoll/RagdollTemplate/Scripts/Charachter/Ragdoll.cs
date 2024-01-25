@@ -179,6 +179,11 @@ namespace KovSoft.RagdollTemplate.Scripts.Charachter
 			{
 				_state = RagdollState.Animated;
 			}
+
+			if (Input.GetKeyDown(KeyCode.Y))
+			{
+				IsRagdolled = true;
+			}
 		}
 
 		/// <summary>

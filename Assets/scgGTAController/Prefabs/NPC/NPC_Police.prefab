@@ -3108,12 +3108,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8520466889614709551}
   - component: {fileID: 8520466889614709548}
-  - component: {fileID: 1014094451859231572}
-  - component: {fileID: 8520466889614709546}
-  - component: {fileID: 8520466889614709544}
   - component: {fileID: 8520466889614709559}
-  - component: {fileID: 8520466889614709558}
+  - component: {fileID: 1014094451859231572}
+  - component: {fileID: 8520466889614709544}
   - component: {fileID: 4893151562596835807}
+  - component: {fileID: 8520466889614709546}
+  - component: {fileID: 8520466889614709558}
   - component: {fileID: 4893151562596835808}
   m_Layer: 0
   m_Name: NPC_Police
@@ -3136,7 +3136,7 @@ Transform:
   m_Children:
   - {fileID: 4002149079792407018}
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8520466889614709548
 Animator:
@@ -3158,59 +3158,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1014094451859231572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8520466889614709547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d98ccd8f834f4264aa19da1e44ec7fb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  ragdoll: {fileID: 4766836962722568796, guid: 8a7d3251b0fedc642956b6c4730a5dd2, type: 3}
-  dontSpawnRagdoll: 0
-  deadTime: 15
-  isAiOrDummy: 1
-  playNoiseOnHurt: 0
-  percentageToPlay: 0
-  hurtNoise: {fileID: 0}
-  regen: 1
-  timeBeforeRegen: 5
-  regenSpeed: 0.2
---- !u!136 &8520466889614709546
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8520466889614709547}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.2
-  m_Height: 1.8
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
---- !u!114 &8520466889614709544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8520466889614709547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80517488b65dc8345838e7924e8ce5e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseDuration: 4
-  playerAvoidanceDistance: 5
-  avoidanceRotationSpeed: 2
-  randomWaypointInterval: 2
 --- !u!195 &8520466889614709559
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3231,24 +3178,50 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 16
+  m_WalkableMask: 24
   m_ObstacleAvoidanceType: 4
---- !u!54 &8520466889614709558
-Rigidbody:
+--- !u!114 &1014094451859231572
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8520466889614709547}
-  serializedVersion: 2
-  m_Mass: 50
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 1
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d98ccd8f834f4264aa19da1e44ec7fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  ragdoll: {fileID: 4766836962722568796, guid: 8a7d3251b0fedc642956b6c4730a5dd2, type: 3}
+  dontSpawnRagdoll: 0
+  deadTime: 15
+  isAiOrDummy: 1
+  playNoiseOnHurt: 0
+  percentageToPlay: 0
+  hurtNoise: {fileID: 0}
+  voiceSoundSource: {fileID: 0}
+  regen: 1
+  timeBeforeRegen: 5
+  regenSpeed: 0.2
+--- !u!114 &8520466889614709544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8520466889614709547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80517488b65dc8345838e7924e8ce5e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  alerted: 0
+  pauseDuration: 4
+  playerAvoidanceDistance: 5
+  avoidanceRotationSpeed: 2
+  randomWaypointInterval: 2
 --- !u!114 &4893151562596835807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3272,9 +3245,38 @@ MonoBehaviour:
     type: 3}
   shootingForce: 100
   shootSound: {fileID: 8300000, guid: 4a21f2ccf76878b489081fef08c81ecc, type: 3}
-  alerted: 0
   gunModel: {fileID: 5617465295523392466}
   damage: 1
+--- !u!136 &8520466889614709546
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8520466889614709547}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!54 &8520466889614709558
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8520466889614709547}
+  serializedVersion: 2
+  m_Mass: 50
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!82 &4893151562596835808
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3294,7 +3296,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 50
   Pan2D: 0

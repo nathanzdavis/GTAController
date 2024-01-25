@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class CameraController : MonoBehaviour
 {
+
+    [HideInInspector] public GameObject followTransform;
     public Vector2 _look;
     public float lookSense;
     public float aimValue;
@@ -16,12 +18,24 @@ public class CameraController : MonoBehaviour
     public float maxVerticalAngle;
     public float minVerticalAngle;
 
+    public bool isCarCameraController;
+
+    private void Start()
+    {
+        if (isCarCameraController)
+        {
+            followTransform = GameObject.FindGameObjectWithTag("carFollowObj");
+        }
+        else
+        {
+            followTransform = GameObject.FindGameObjectWithTag("playerFollowObj");
+        }
+    }
+
     private void Update()
     {
         _look = new Vector2(Input.GetAxis("Mouse X"), -Input.GetAxis("Mouse Y"));
     }
-
-    public GameObject followTransform;
 
     private void FixedUpdate()
     {

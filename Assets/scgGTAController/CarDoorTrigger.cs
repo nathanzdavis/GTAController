@@ -19,12 +19,13 @@ public class CarDoorTrigger : MonoBehaviour
     bool lockPlayer;
     public Transform seatPos;
     bool transitioning;
-    public CinemachineVirtualCamera carCamera;
-    public CinemachineVirtualCamera playerCamera;
+    private CinemachineVirtualCamera carCamera;
+    private CinemachineVirtualCamera playerCamera;
 
     void Start()
     {
-
+        carCamera = GameObject.FindGameObjectWithTag("carCamera").GetComponent<CinemachineVirtualCamera>();
+        playerCamera = GameObject.FindGameObjectWithTag("playerCamera").GetComponent<CinemachineVirtualCamera>();
     }
 
     void OnTriggerEnter(Collider col)
@@ -92,7 +93,10 @@ public class CarDoorTrigger : MonoBehaviour
         player.GetComponent<CapsuleCollider>().enabled = false;
         player.GetComponent<IKFeet>().enabled = false;
         player.GetComponent<ThirdPersonControl>().state = "InCar";
-        GameObject.FindGameObjectWithTag("carFollowObj").GetComponent<StickToObject>().target = carFocusTransform;
+        var carFollowObj = GameObject.FindGameObjectWithTag("carFollowObj");
+        carFollowObj.transform.position = carFocusTransform.position;
+        carFollowObj.transform.rotation = carFocusTransform.rotation;
+        carFollowObj.GetComponent<StickToObject>().target = carFocusTransform;
         transform.root.GetComponent<CameraController>().enabled = true;
         carCamera.Priority = 1;
         playerCamera.Priority = 0;
