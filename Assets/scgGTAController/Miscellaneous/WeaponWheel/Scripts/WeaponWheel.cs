@@ -9,8 +9,8 @@ namespace GTAWeaponWheel.Scripts
 {
     public class WeaponWheel : MonoBehaviour
     {
+        InputActions input;
         public static WeaponWheel instance;
-        [SerializeField] private KeyCode wheelKey = KeyCode.Tab;
         [SerializeField] private GameObject wheelParent;
         [SerializeField] private GameObject blur;
         
@@ -18,7 +18,7 @@ namespace GTAWeaponWheel.Scripts
         private Camera playerCamera;
         private GameObject player;
         [SerializeField] private float targetTimeScale = 0.3f, timeToGoToTargetTimeScale = 0.1f;  //Adds A Slow Motion Effect when weapon wheel is enabled
-
+        private Vector2 selectionPos;
         private float m_TimeV;
         
         [Serializable]
@@ -128,50 +128,112 @@ namespace GTAWeaponWheel.Scripts
                 pos[i] = playerCamera.WorldToScreenPoint(dots[i].position);
             }
 
-            mousePos = Input.mousePosition;
-            if (IsInside(pos[0], pos[1], pos[2], mousePos))
+            Vector2 inputPos;
+
+            /*
+            // Check if controller input is available
+            if (joystickPos.magnitude > 0)
             {
-                //Selected Weapon is 0
-                EnableHighlight(0);
-                WeaponManager.instance.SwitchWeapon(0);
-            }else if (IsInside(pos[0], pos[2], pos[3], mousePos))
-            {
-                EnableHighlight(1);
-                WeaponManager.instance.SwitchWeapon(1);
-            }else if (IsInside(pos[0], pos[3], pos[4], mousePos))
-            {
-                EnableHighlight(2);
-                WeaponManager.instance.SwitchWeapon(2);
-            }else if (IsInside(pos[0], pos[4], pos[5], mousePos))
-            {
-                EnableHighlight(3);
-                WeaponManager.instance.SwitchWeapon(3);
-            }else if (IsInside(pos[0], pos[5], pos[6], mousePos))
-            {
-                EnableHighlight(4);
-                WeaponManager.instance.SwitchWeapon(4);
-            }else if (IsInside(pos[0], pos[6], pos[7], mousePos))
-            {
-                EnableHighlight(5);
-                WeaponManager.instance.SwitchWeapon(5);
-            }else if (IsInside(pos[0], pos[7], pos[8], mousePos))
-            {
-                EnableHighlight(6);
-                WeaponManager.instance.SwitchWeapon(6);
-            }else if (IsInside(pos[0], pos[8], pos[1], mousePos))
-            {
-                EnableHighlight(7);
-                WeaponManager.instance.SwitchWeapon(7);
+                
             }
-            
+            else
+            {   
+                // Check if mouse is over the wheel
+                mousePos = Input.mousePosition;
+                inputPos = new Vector2(mousePos.x, mousePos.y);
+            }
+            */
+
+            // Define a class variable to store the last angle
+            float lastAngle = 0.0f;
+
+            // Only initialize lastAngle once (e.g., in Start or Awake method)
+            // lastAngle = 0.0f;
+
+            // Assuming inputVector is your joystick or mouse input
+            float horizontalInput = selectionPos.x;
+            float verticalInput = selectionPos.y;
+
+            // Check if only horizontal input is given
+            if (Mathf.Approximately(verticalInput, 0.0f))
+            {
+                // Use horizontal input to move left or right
+                float angle = Mathf.Sign(horizontalInput) * 90.0f;
+
+                // Add the new angle to the last angle
+                lastAngle += angle;
+            }
+            // Check if only vertical input is given
+            else if (Mathf.Approximately(horizontalInput, 0.0f))
+            {
+                // Use vertical input to move up or down
+                float angle = -Mathf.Sign(verticalInput) * 180.0f;
+
+                // Add the new angle to the last angle
+                lastAngle += angle;
+            }
+            // Handle diagonal input
+            else
+            {
+                // Use both horizontal and vertical input for circular motion
+                float angle = Mathf.Atan2(verticalInput, horizontalInput) * Mathf.Rad2Deg;
+
+                if (angle < 0)
+                {
+                    angle += 360; // Ensure the angle is non-negative
+                }
+
+                // Reverse the direction by subtracting the new angle from the last angle
+                lastAngle += angle;
+
+                // Ensure lastAngle stays within a reasonable range
+                if (lastAngle < 0)
+                {
+                    lastAngle += 360;
+                }
+                else if (lastAngle >= 360)
+                {
+                    lastAngle -= 360;
+                }
+            }
+
+            // Calculate the selected slot based on the updated angle
+            int selectedSlot = Mathf.FloorToInt(lastAngle / 45.0f) % 8;
+
+            EnableHighlight(selectedSlot);
+            WeaponManager.instance.SwitchWeapon(selectedSlot);
+
         }
         // Start is called before the first frame update
         private void Start()
         {
+            input = new InputActions();
+
+            input.Player.Enable();
+
+            //Joystick look value
+            input.Player.Look.performed += ctx =>
+            {
+                selectionPos = ctx.ReadValue<Vector2>();
+            };
+
+            //Interaction
+            input.Player.InteractionWheel.performed += ctx =>
+            {
+                ShowWheel();
+            };
+
+            input.Player.InteractionWheel.canceled += ctx =>
+            {
+                HideWheel();
+            };
+
             player = GameObject.FindGameObjectWithTag("Player");
             prevSense = player.GetComponent<CameraController>().lookSense;
+
             instance = this;
             DisableWheel();
+
             for (int i = 0; i < wheels.Length; i++)
             {
                 if (wheels[i].wheel != null)
@@ -218,26 +280,30 @@ namespace GTAWeaponWheel.Scripts
         {
             if (player)
             {
-                if (Input.GetKey(wheelKey))
-                {
-                    //Enable Wheel Mode
-                    EnableWheel();
-                    CheckForCurrentWeapon();
-                    player.GetComponent<CameraController>().lookSense = 0;
-                }
-                else if (Input.GetKeyUp(wheelKey))
-                {
-                    //Disable Wheel Mode
-                    DisableWheel();
-                    player.GetComponent<CameraController>().lookSense = prevSense;
-                }
-
                 if (m_WheelEnabled)
+                {
+                    CheckForCurrentWeapon();
                     Time.timeScale = Mathf.SmoothDamp(Time.timeScale, targetTimeScale, ref m_TimeV, timeToGoToTargetTimeScale);
+
+                }
                 else if (player.GetComponent<HealthController>().health > 0)
                     Time.timeScale = Mathf.SmoothDamp(Time.timeScale, 1f, ref m_TimeV, timeToGoToTargetTimeScale);
 
             }
+        }
+
+        private void ShowWheel()
+        {
+            //Enable Wheel Mode
+            EnableWheel();
+            player.GetComponent<CameraController>().lookSense = 0;
+        }
+
+        private void HideWheel()
+        {
+            //Disable Wheel Mode
+            DisableWheel();
+            player.GetComponent<CameraController>().lookSense = prevSense;
         }
     }
 }

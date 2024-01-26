@@ -27,6 +27,12 @@ namespace scgGTAController
         public enum ShootTypes { SemiAuto, FullAuto, BoltAction };
         public enum HoldType { Normal, Dual};
 
+        [Header("Input")]
+        InputActions input;
+        private bool firePressed;
+        private bool aimPressed;
+        private bool reloadPressed;
+
         [Header("WeaponType")]
         public WeaponTypes Weapon;
 
@@ -61,7 +67,7 @@ namespace scgGTAController
         public float shellDespawnTime;
         public float magDespawnTime;
         public float cycleTimeBoltAction;
-        public float cycleTimeSemiAuto;
+        public float cycleTimeSemiAuto;   
 
         [Header("Timing")]
         public float reloadTime;
@@ -128,6 +134,43 @@ namespace scgGTAController
 
         private void Start()
         {
+            input = new InputActions();
+
+            input.Player.Enable();
+
+            //Attack input
+            input.Player.Attack.performed += ctx =>
+            {
+                firePressed = true;
+            };
+
+            input.Player.Attack.canceled += ctx =>
+            {
+                firePressed = false;
+            };
+
+            //Aim input
+            input.Player.Aim.performed += ctx =>
+            {
+                aimPressed = true;
+            };
+
+            input.Player.Aim.canceled += ctx =>
+            {
+                aimPressed = false;
+            };
+
+            //Reload input
+            input.Player.Reload.performed += ctx =>
+            {
+                reloadPressed = true;
+            };
+
+            input.Player.Reload.canceled += ctx =>
+            {
+                reloadPressed = false;
+            };
+
             mainCam = Camera.main.gameObject;
             lookTarget = GameObject.FindGameObjectWithTag("playerFollowObj").transform.GetChild(0);
 
@@ -139,7 +182,7 @@ namespace scgGTAController
         private void Update()
         {
             //Input and actions for shooting
-            if (Input.GetButtonDown("Fire1") && !firing && reloading == false && bulletsInMag > 0 && !cycling && !swapping)
+            if (firePressed && !firing && reloading == false && bulletsInMag > 0 && !cycling && !swapping)
             {
                 firing = true;
                 foreach (ParticleSystem ps in muzzleFlashes)
@@ -196,7 +239,7 @@ namespace scgGTAController
                 NPCManager.instance.CheckAlert(transform);
             }
 
-            if (Input.GetButtonUp("Fire1") || bulletsInMag == 0)
+            if (!firePressed || bulletsInMag == 0)
             {
                 firing = false;
                 recoilSemi = false;
@@ -213,14 +256,16 @@ namespace scgGTAController
                 }
             }
 
+            /*
             if (Input.GetButtonDown("Grenade"))
             {
                 anim.SetTrigger("Grenade");
                 throwing = true;
                 Invoke("throwingCancel", grenadeTime);
             }
+            */
 
-            if (Input.GetButtonDown("Reload") && !reloading && !firing && bulletsInMag < bulletsPerMag && totalBullets > 0)
+            if (reloadPressed && !reloading && !firing && bulletsInMag < bulletsPerMag && totalBullets > 0)
             {
                 anim.SetBool("reload", true);
                 reloading = true;
@@ -253,11 +298,11 @@ namespace scgGTAController
 
         void LateUpdate()
         {
-            if (Input.GetButtonDown("Fire2") && aimFinished && !swapping)
+            if (aimPressed && aimFinished && !swapping)
             {
                 aimIn();
             }
-            else if (Input.GetButtonUp("Fire2") && aiming && !swapping)
+            else if (!aimPressed && aiming && !swapping)
             {
                 aimOut();
             }

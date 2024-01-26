@@ -1,24 +1,30 @@
 using GTAWeaponWheel.Scripts;
 using scgGTAController;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 namespace KovSoft.RagdollTemplate.Scripts.Charachter
 {
 	[RequireComponent(typeof(IThirdPerson))]
 	public sealed class ThirdPersonControl : MonoBehaviour
     {
+        [Header("Input")]
+        InputActions input;
+
         [Header("Locomotion")]
         public float walkSpeed;
         public float jogSpeed;
         public float runSpeed;
-        public bool sprintPressed;
         private IThirdPerson _character;
 		private IRagdoll _ragdoll;
 		private IDamageable _health;
 		private bool _jumpPressed;
-		private bool _crouch;
-		public float sprintAmount;
+		private bool _crouchPressed;
+        public float sprintAmount;
         public float sprintDecrement;
+        private Vector2 moveInput;
+        [HideInInspector] public bool sprintPressed;
 
         [Header("Punching")]
 		public MeleeHitSensing punchSensing; 
@@ -39,27 +45,63 @@ namespace KovSoft.RagdollTemplate.Scripts.Charachter
 			_character = GetComponent<IThirdPerson>();
 			_health = GetComponent<IDamageable>();
 			_ragdoll = GetComponent<IRagdoll>();
-		}
+            
+            input = new InputActions();
 
-		void Update()
+            input.Player.Enable();
+
+            //Movement
+            input.Player.Move.performed += ctx =>
+            {
+                moveInput = ctx.ReadValue<Vector2>();
+                print("getting input");
+            };
+
+            //Sprint input
+            input.Player.Sprint.performed += ctx =>
+            {
+                sprintPressed = true;
+            };
+
+            input.Player.Sprint.canceled += ctx =>
+            {
+                sprintPressed = false;
+            };
+
+            //Jump
+            input.Player.Jump.performed += ctx =>
+            {
+                _jumpPressed = true;
+            };
+
+            input.Player.Jump.canceled += ctx =>
+            {
+                _jumpPressed = false;
+            };
+
+            //Crouch
+            input.Player.Crouch.performed += ctx =>
+            {
+                _crouchPressed = true;
+            };
+
+            input.Player.Crouch.canceled += ctx =>
+            {
+                _crouchPressed = false;
+            };
+
+            //Punch
+            input.Player.Attack.performed += ctx =>
+            {
+                if (GetComponent<WeaponManager>().CurrentWeapon.weaponName == "Fists")
+                {
+                    GetComponent<Animator>().SetTrigger("Punch");
+                }
+            };
+        }
+
+		private void Update()
 		{
-			// read user input: jump, fire and crouch
-
-			if (!_jumpPressed)
-			{
-                _jumpPressed = Input.GetButtonDown("Jump");                
-            }
-
-            _crouch = Input.GetKey(KeyCode.C);
-
-			if (Input.GetButtonDown("Fire1"))
-			{
-				if (GetComponent<WeaponManager>().CurrentWeapon.weaponName == "Fists")
-				{
-					GetComponent<Animator>().SetTrigger("Punch");
-				}
-			}
-
 			if (sprintAmount > 0)
 				HudController.instance.uiStamina.value = sprintAmount / 100;
 			else
@@ -69,8 +111,8 @@ namespace KovSoft.RagdollTemplate.Scripts.Charachter
         private void FixedUpdate()
 		{
 			// read user input: movement
-			float h = Input.GetAxis("Horizontal");
-			float v = Input.GetAxis("Vertical");
+			float h = moveInput.x;
+			float v = moveInput.y;
 			
 			// calculate move direction and magnitude to pass to character
 			Vector3 camForward = new Vector3(_camTransform.forward.x, 0, _camTransform.forward.z).normalized;
@@ -80,10 +122,9 @@ namespace KovSoft.RagdollTemplate.Scripts.Charachter
                 move *= .7f;
             }
 
-			if (Input.GetButton("Sprint") && sprintAmount > 0)
+			if (sprintPressed && sprintAmount > 0)
 			{
 				move *= runSpeed;
-				sprintPressed = true;
 
                 if (sprintAmount > 0)
                     sprintAmount -= sprintDecrement * Time.deltaTime;
@@ -94,19 +135,16 @@ namespace KovSoft.RagdollTemplate.Scripts.Charachter
                     sprintAmount += sprintDecrement * Time.deltaTime;
             }
 
-            if (Input.GetButtonUp("Sprint"))
-            {
-                sprintPressed = false;
-            }
+            if (moveInput.magnitude != 0) 
+                move *= walkSpeed;
 
-            if (Input.GetButton("Walk")) move *= walkSpeed;
             if (move.magnitude > 1)
 				move.Normalize();
 
 			ProcessDamage();
 
 			// pass all parameters to the character control script
-			_character.Move(move, _crouch, _jumpPressed);
+			_character.Move(move, _crouchPressed, _jumpPressed);
 			_jumpPressed = false;
 
 			// if ragdolled, add a little move

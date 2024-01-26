@@ -1,0 +1,361 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &141594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 450602}
+  - component: {fileID: 11439030}
+  - component: {fileID: 11411866}
+  - component: {fileID: 11429778}
+  - component: {fileID: 11452910}
+  - component: {fileID: 11465078}
+  - component: {fileID: 11430436}
+  - component: {fileID: 11495374}
+  m_Layer: 0
+  m_Name: WeatherMaster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &450602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141594}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.37, y: 10.16, z: -2.09}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11439030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a7174e887b3fd74b98ff4be38e1807b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bUsingProceduralSkybox: 0
+  _bUseSun: 1
+  _bUseCloudy: 1
+  _bUseRain: 1
+  _bUseThunderstorm: 1
+  _bUseSnow: 1
+  _bUseRandomWeather: 1
+  _bUseRandomDaysWeather: 1
+  _iChangeWeatherAfterDays: 1
+  _iMinAmountOfDaysToNewWeather: 10
+  _iMaxAmountOfDaysToNewWeather: 20
+  gTimeOfDay: {fileID: 0}
+  matClouds: {fileID: 2100000, guid: 34a9a1b5104c05d498a208bdf720e1fd, type: 2}
+  matSkybox: {fileID: 2100000, guid: a46bb5ebf1f910f469f4f759299304f3, type: 2}
+  en_CurrWeather: 0
+  en_LastWeather: 0
+--- !u!114 &11411866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8812af7ea53e55e4fac2bafabd6728e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guiDebugSkin: {fileID: 11400000, guid: c8e8dedff5b6e7441ac0209a25b1461e, type: 2}
+--- !u!114 &11429778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141594}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36735412b1be1db43b08179b0e44baa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bUseDifferentFadeTimes: 1
+  _fFadeTime: 7
+  _fSunriseFadeTime: 1
+  _fDayFadeTime: 1
+  _fSunsetFadeTime: 8
+  _fNightFadeTime: 30
+  _bUseInit: 0
+  _fInitTimerEnd: 3
+  _bUsingSound: 0
+  _adAmbientSound: {fileID: 0}
+  _fSoundVolume: 0.01
+  _fTimeToFadeSound: 3
+  _fLowestTemp: 15
+  _fHighestTemp: 30
+  _fSunrise_LightIntensity: 0.4
+  _fDay_LightIntensity: 1
+  _fSunset_LightIntensity: 0.4
+  _fNight_LightIntensity: 0
+  _cSunrise_LightColor: {r: 1, g: 0.6901961, b: 0.36078432, a: 1}
+  _cDay_LightColor: {r: 1, g: 1, b: 1, a: 1}
+  _cSunset_LightColor: {r: 1, g: 0.5568628, b: 0.5568628, a: 1}
+  _cNight_LightColor: {r: 0.6397059, g: 0.8360041, b: 1, a: 1}
+  _fNight_MoonLightIntensity: 0.3
+  _cNight_MoonLightColor: {r: 0.38431373, g: 0.7176471, b: 1, a: 1}
+  _cSunrise_SkyTintColor: {r: 1, g: 0.5638945, b: 0.36764705, a: 1}
+  _cDay_SkyTintColor: {r: 0.30882353, g: 0.65783364, b: 1, a: 1}
+  _cSunset_SkyTintColor: {r: 1, g: 0.5568628, b: 0.5568628, a: 1}
+  _cNight_SkyTintColor: {r: 0.048659164, g: 0.26116857, b: 0.44117647, a: 1}
+  _cSunrise_SkyGroundColor: {r: 0.97647065, g: 0.81568635, b: 0.28235295, a: 1}
+  _cDay_SkyGroundColor: {r: 0.86666673, g: 0.9333334, b: 1, a: 1}
+  _cSunset_SkyGroundColor: {r: 1, g: 0.5568628, b: 0.5568628, a: 1}
+  _cNight_SkyGroundColor: {r: 0.38431376, g: 0.7176471, b: 1, a: 1}
+  _cCloudColor: {r: 1, g: 1, b: 1, a: 1}
+  _fFogAmount: 0.001
+  _fFogMorningAmount: 0.5
+  _bUseMorningFog: 1
+  _cFogColor: {r: 1, g: 1, b: 1, a: 1}
+  _pSunriseParticle: {fileID: 0}
+  _pDayParticle: {fileID: 0}
+  _pSunsetParticle: {fileID: 0}
+  _pNightParticle: {fileID: 0}
+  _gSoundEffect: {fileID: 0}
+--- !u!114 &11452910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141594}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f89ffb69ed90394a89879b82622b254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bUseDifferentFadeTimes: 0
+  _fFadeTime: 7
+  _fSunriseFadeTime: 5
+  _fDayFadeTime: 5
+  _fSunsetFadeTime: 5
+  _fNightFadeTime: 5
+  _bUseInit: 0
+  _fInitTimerEnd: 4
+  _bUsingSound: 0
+  _adAmbientSound: {fileID: 0}
+  _fSoundVolume: 0.02
+  _fTimeToFadeSound: 5
+  _fLowestTemp: 10
+  _fHighestTemp: 20
+  _fSunrise_LightIntensity: 0.2
+  _fDay_LightIntensity: 0.5
+  _fSunset_LightIntensity: 0.2
+  _fNight_LightIntensity: 0
+  _cSunrise_LightColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cDay_LightColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cSunset_LightColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cNight_LightColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _fNight_MoonLightIntensity: 0.5
+  _cNight_MoonLightColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cSunrise_SkyTintColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cDay_SkyTintColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cSunset_SkyTintColor: {r: 0.23529413, g: 0.23529413, b: 0.23529413, a: 1}
+  _cNight_SkyTintColor: {r: 0.23529413, g: 0.23529413, b: 0.23529413, a: 1}
+  _cSunrise_SkyGroundColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  _cDay_SkyGroundColor: {r: 0, g: 1, b: 1, a: 1}
+  _cSunset_SkyGroundColor: {r: 1, g: 0, b: 0, a: 1}
+  _cNight_SkyGroundColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  _cCloudColor: {r: 0.23529413, g: 0.23529413, b: 0.23529413, a: 1}
+  _fFogAmount: 0.08
+  _fFogMorningAmount: 0.05
+  _bUseMorningFog: 0
+  _cFogColor: {r: 0.23529413, g: 0.23529413, b: 0.23529413, a: 1}
+  _pSunriseParticle: {fileID: 0}
+  _pDayParticle: {fileID: 0}
+  _pSunsetParticle: {fileID: 0}
+  _pNightParticle: {fileID: 0}
+  _gSoundEffect: {fileID: 0}
+--- !u!114 &11465078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141594}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e60710fbbbb5c24e95014efc0eb3d91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bUseDifferentFadeTimes: 0
+  _fFadeTime: 7
+  _fSunriseFadeTime: 5
+  _fDayFadeTime: 5
+  _fSunsetFadeTime: 5
+  _fNightFadeTime: 5
+  _bUseInit: 0
+  _fInitTimerEnd: 12
+  _bUsingSound: 0
+  _adAmbientSound: {fileID: 0}
+  _fSoundVolume: 0.1
+  _fTimeToFadeSound: 2
+  _fLowestTemp: 0
+  _fHighestTemp: 10
+  _fSunrise_LightIntensity: 0.2
+  _fDay_LightIntensity: 0.5
+  _fSunset_LightIntensity: 0.2
+  _fNight_LightIntensity: 0
+  _cSunrise_LightColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cDay_LightColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cSunset_LightColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cNight_LightColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _fNight_MoonLightIntensity: 0.5
+  _cNight_MoonLightColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cSunrise_SkyTintColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cDay_SkyTintColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cSunset_SkyTintColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cNight_SkyTintColor: {r: 0.427451, g: 0.427451, b: 0.427451, a: 1}
+  _cSunrise_SkyGroundColor: {r: 0.7137255, g: 0.7137255, b: 0.7137255, a: 1}
+  _cDay_SkyGroundColor: {r: 0.7137255, g: 0.7137255, b: 0.7137255, a: 1}
+  _cSunset_SkyGroundColor: {r: 0.7137255, g: 0.7137255, b: 0.7137255, a: 1}
+  _cNight_SkyGroundColor: {r: 0.7137255, g: 0.7137255, b: 0.7137255, a: 1}
+  _cCloudColor: {r: 0, g: 0, b: 0, a: 1}
+  _fFogAmount: 0.03
+  _fFogMorningAmount: 0.05
+  _bUseMorningFog: 0
+  _cFogColor: {r: 0.625, g: 0.625, b: 0.625, a: 1}
+  _pSunriseParticle: {fileID: 0}
+  _pDayParticle: {fileID: 0}
+  _pSunsetParticle: {fileID: 0}
+  _pNightParticle: {fileID: 0}
+  _gPartRain: {fileID: 0}
+--- !u!114 &11430436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141594}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc940a84cbb66b47b733f1e8a0d83d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bUseDifferentFadeTimes: 0
+  _fFadeTime: 7
+  _fSunriseFadeTime: 5
+  _fDayFadeTime: 5
+  _fSunsetFadeTime: 5
+  _fNightFadeTime: 5
+  _bUseInit: 0
+  _fInitTimerEnd: 12
+  _bUsingSound: 0
+  _adAmbientSound: {fileID: 0}
+  _fSoundVolume: 0.1
+  _fTimeToFadeSound: 2
+  _fLowestTemp: 0
+  _fHighestTemp: 30
+  _fSunrise_LightIntensity: 0.2
+  _fDay_LightIntensity: 0.4
+  _fSunset_LightIntensity: 0.2
+  _fNight_LightIntensity: 0
+  _cSunrise_LightColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cDay_LightColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cSunset_LightColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cNight_LightColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _fNight_MoonLightIntensity: 0.5
+  _cNight_MoonLightColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cSunrise_SkyTintColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cDay_SkyTintColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cSunset_SkyTintColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cNight_SkyTintColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  _cSunrise_SkyGroundColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  _cDay_SkyGroundColor: {r: 0, g: 1, b: 1, a: 1}
+  _cSunset_SkyGroundColor: {r: 1, g: 0, b: 0, a: 1}
+  _cNight_SkyGroundColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  _cCloudColor: {r: 0.32941177, g: 0.32941177, b: 0.32941177, a: 1}
+  _fFogAmount: 0.03
+  _fFogMorningAmount: 0.05
+  _bUseMorningFog: 0
+  _cFogColor: {r: 0.5955882, g: 0.5955882, b: 0.5955882, a: 1}
+  _pSunriseParticle: {fileID: 0}
+  _pDayParticle: {fileID: 0}
+  _pSunsetParticle: {fileID: 0}
+  _pNightParticle: {fileID: 0}
+  _gPartRain: {fileID: 0}
+  _fRandomThunderTimeMin: 4
+  _fRandomThunderTimeMax: 10
+  _fLightningIntensity: 5
+  _fLightningRange: 500
+  _fTimeBeforeLightningLightTurnsOff: 0.4
+  _adThunderSound: {fileID: 0}
+  _fLightningVolume: 1
+  _fLightningRangeFromWeatherMasterMin: 50
+  _fLightningRangeFromWeatherMasterMax: 50
+  _fLightningHeight: 50
+--- !u!114 &11495374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141594}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c89e4d515b757d4d9267189c82471c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bUseDifferentFadeTimes: 0
+  _fFadeTime: 7
+  _fSunriseFadeTime: 5
+  _fDayFadeTime: 5
+  _fSunsetFadeTime: 5
+  _fNightFadeTime: 5
+  _bUseInit: 0
+  _fInitTimerEnd: 3
+  _bUsingSound: 0
+  _adAmbientSound: {fileID: 0}
+  _fSoundVolume: 0.01
+  _fTimeToFadeSound: 3
+  _fLowestTemp: 0
+  _fHighestTemp: 30
+  _fSunrise_LightIntensity: 0.5
+  _fDay_LightIntensity: 1
+  _fSunset_LightIntensity: 0.5
+  _fNight_LightIntensity: 0
+  _cSunrise_LightColor: {r: 1, g: 0.6901961, b: 0.36078432, a: 1}
+  _cDay_LightColor: {r: 0.86666673, g: 0.9333334, b: 1, a: 1}
+  _cSunset_LightColor: {r: 1, g: 0.5568628, b: 0.5568628, a: 1}
+  _cNight_LightColor: {r: 0.38431376, g: 0.7176471, b: 1, a: 1}
+  _fNight_MoonLightIntensity: 0.3
+  _cNight_MoonLightColor: {r: 0.3254902, g: 0.53333336, b: 0.9411765, a: 1}
+  _cSunrise_SkyTintColor: {r: 1, g: 0.5647059, b: 0.36862746, a: 1}
+  _cDay_SkyTintColor: {r: 0.30980393, g: 0.65882355, b: 1, a: 1}
+  _cSunset_SkyTintColor: {r: 1, g: 0.5568628, b: 0.5568628, a: 1}
+  _cNight_SkyTintColor: {r: 0.04705883, g: 0.2627451, b: 0.4431373, a: 1}
+  _cSunrise_SkyGroundColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  _cDay_SkyGroundColor: {r: 0, g: 1, b: 1, a: 1}
+  _cSunset_SkyGroundColor: {r: 1, g: 0, b: 0, a: 1}
+  _cNight_SkyGroundColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  _cCloudColor: {r: 1, g: 1, b: 1, a: 1}
+  _fFogAmount: 0.001
+  _fFogMorningAmount: 0.05
+  _bUseMorningFog: 0
+  _cFogColor: {r: 1, g: 1, b: 1, a: 1}
+  _pSunriseParticle: {fileID: 0}
+  _pDayParticle: {fileID: 0}
+  _pSunsetParticle: {fileID: 0}
+  _pNightParticle: {fileID: 0}
+  _gPartSnow: {fileID: 0}

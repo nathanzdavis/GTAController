@@ -6,9 +6,11 @@ using KovSoft.RagdollTemplate.Scripts.Charachter;
 using scgGTAController;
 using GTAWeaponWheel.Scripts;
 using Cinemachine;
+using UnityEngine.InputSystem;
 
 public class CarDoorTrigger : MonoBehaviour
 {
+    InputActions input;
     bool inTrigger;
     bool enterToggle;
     GameObject player;
@@ -26,6 +28,17 @@ public class CarDoorTrigger : MonoBehaviour
     {
         carCamera = GameObject.FindGameObjectWithTag("carCamera").GetComponent<CinemachineVirtualCamera>();
         playerCamera = GameObject.FindGameObjectWithTag("playerCamera").GetComponent<CinemachineVirtualCamera>();
+        
+        input = new InputActions();
+
+        input.Player.Enable();
+
+        //Interaction input
+        input.Player.Interact.performed += ctx =>
+        {
+            TryEnterCar();
+        };
+
     }
 
     void OnTriggerEnter(Collider col)
@@ -45,37 +58,38 @@ public class CarDoorTrigger : MonoBehaviour
         }
     }
 
-    void Update()
+    private void TryEnterCar()
     {
         if (inTrigger && !transitioning)
         {
-            if (Input.GetButtonDown("Action")){
-                transitioning = true;
-                enterToggle = !enterToggle;
-                WeaponManager.instance.SwitchWeapon(4);
-                if (enterToggle)
-                {
-                    lockPlayer = true;
-                    Invoke("enableCar", carEnableTime);
-                    player.GetComponent<ThirdPersonControl>().enabled = false;                   
-                    player.transform.position = enterCarTransform.position;
-                    player.transform.eulerAngles = enterCarTransform.eulerAngles;
-                    player.GetComponent<Animator>().SetBool("doorOpen", true);
-                    transform.root.gameObject.GetComponent<Animator>().SetBool("doorOpen", true);
-                }
-                else
-                {
-                    Invoke("enablePlayer", carEnableTime);
-                    player.transform.parent = null;
-                    transform.root.gameObject.GetComponent<CarUserControl>().notInCar = true;
-                    player.GetComponent<Rigidbody>().isKinematic = false;
-                    player.GetComponent<CapsuleCollider>().enabled = true;
-                    player.GetComponent<Animator>().SetBool("doorOpen", false);
-                    transform.root.gameObject.GetComponent<Animator>().SetBool("doorOpen", false);
-                }            
+            transitioning = true;
+            enterToggle = !enterToggle;
+            WeaponManager.instance.SwitchWeapon(4);
+            if (enterToggle)
+            {
+                lockPlayer = true;
+                Invoke("enableCar", carEnableTime);
+                player.GetComponent<ThirdPersonControl>().enabled = false;
+                player.transform.position = enterCarTransform.position;
+                player.transform.eulerAngles = enterCarTransform.eulerAngles;
+                player.GetComponent<Animator>().SetBool("doorOpen", true);
+                transform.root.gameObject.GetComponent<Animator>().SetBool("doorOpen", true);
+            }
+            else
+            {
+                Invoke("enablePlayer", carEnableTime);
+                player.transform.parent = null;
+                transform.root.gameObject.GetComponent<CarUserControl>().notInCar = true;
+                player.GetComponent<Rigidbody>().isKinematic = false;
+                player.GetComponent<CapsuleCollider>().enabled = true;
+                player.GetComponent<Animator>().SetBool("doorOpen", false);
+                transform.root.gameObject.GetComponent<Animator>().SetBool("doorOpen", false);
             }
         }
+    }
 
+    void Update()
+    {
         if (lockPlayer)
         {
             player.transform.position = seatPos.position;
