@@ -54,18 +54,28 @@ namespace KovSoft.RagdollTemplate.Scripts.Charachter
             input.Player.Move.performed += ctx =>
             {
                 moveInput = ctx.ReadValue<Vector2>();
-                print("getting input");
             };
 
             //Sprint input
             input.Player.Sprint.performed += ctx =>
             {
-                sprintPressed = true;
+                if (GetComponent<PlayerInput>().currentControlScheme != "Gamepad")
+                {
+                    sprintPressed = true;
+                }
+
+                if (GetComponent<PlayerInput>().currentControlScheme == "Gamepad")
+                {
+                    sprintPressed = !sprintPressed;
+                }
             };
 
             input.Player.Sprint.canceled += ctx =>
             {
-                sprintPressed = false;
+                if (GetComponent<PlayerInput>().currentControlScheme != "Gamepad")
+                {
+                    sprintPressed = false;
+                }
             };
 
             //Jump
@@ -88,6 +98,20 @@ namespace KovSoft.RagdollTemplate.Scripts.Charachter
             input.Player.Crouch.canceled += ctx =>
             {
                 _crouchPressed = false;
+            };
+
+            //Crouch
+            input.Player.Walk.performed += ctx =>
+            {
+                if (moveInput.magnitude != 0)
+                    moveInput *= walkSpeed;
+            };
+
+            //Crouch
+            input.Player.Walk.canceled += ctx =>
+            {
+                if (moveInput.magnitude != 0)
+                    moveInput /= walkSpeed;
             };
 
             //Punch
@@ -134,9 +158,6 @@ namespace KovSoft.RagdollTemplate.Scripts.Charachter
                 if (sprintAmount < 100)
                     sprintAmount += sprintDecrement * Time.deltaTime;
             }
-
-            if (moveInput.magnitude != 0) 
-                move *= walkSpeed;
 
             if (move.magnitude > 1)
 				move.Normalize();

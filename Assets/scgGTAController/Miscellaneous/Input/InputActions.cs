@@ -116,6 +116,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Walk"",
+                    ""type"": ""Button"",
+                    ""id"": ""874f1ff5-0955-4ee1-8772-dcf2a0db5b52"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -124,7 +133,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""id"": ""978bfe49-cc26-4a3d-ab7b-7d7a29327403"",
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
-                    ""processors"": ""ScaleVector2(x=1.5,y=1.5)"",
+                    ""processors"": ""ScaleVector2(x=1.4,y=1.4)"",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
@@ -441,7 +450,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""004554c0-dbea-4315-8eae-ee56d5392590"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -501,6 +510,17 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dd9e18e9-9851-4436-8232-19cc413af8d9"",
+                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1098,6 +1118,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Player_Reload = m_Player.FindAction("Reload", throwIfNotFound: true);
         m_Player_InteractionWheel = m_Player.FindAction("InteractionWheel", throwIfNotFound: true);
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
+        m_Player_Walk = m_Player.FindAction("Walk", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1179,6 +1200,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Reload;
     private readonly InputAction m_Player_InteractionWheel;
     private readonly InputAction m_Player_Crouch;
+    private readonly InputAction m_Player_Walk;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -1193,6 +1215,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         public InputAction @Reload => m_Wrapper.m_Player_Reload;
         public InputAction @InteractionWheel => m_Wrapper.m_Player_InteractionWheel;
         public InputAction @Crouch => m_Wrapper.m_Player_Crouch;
+        public InputAction @Walk => m_Wrapper.m_Player_Walk;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1232,6 +1255,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Crouch.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
                 @Crouch.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
                 @Crouch.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCrouch;
+                @Walk.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWalk;
+                @Walk.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWalk;
+                @Walk.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnWalk;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1266,6 +1292,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @Crouch.started += instance.OnCrouch;
                 @Crouch.performed += instance.OnCrouch;
                 @Crouch.canceled += instance.OnCrouch;
+                @Walk.started += instance.OnWalk;
+                @Walk.performed += instance.OnWalk;
+                @Walk.canceled += instance.OnWalk;
             }
         }
     }
@@ -1432,6 +1461,7 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         void OnReload(InputAction.CallbackContext context);
         void OnInteractionWheel(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnWalk(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

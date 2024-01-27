@@ -99,9 +99,6 @@ namespace scgGTAController
                 health -= damage;
                 GetComponent<Animator>().SetTrigger("hit");
 
-                if (GetComponent<AiController>())
-                    GetComponent<AiController>().overrideAttack = true;
-
                 if (playNoiseOnHurt)
                 {
                     if (Random.value < percentageToPlay)
@@ -184,9 +181,6 @@ namespace scgGTAController
                 //This feature is for AI with the ragdoll built in for a more realistic death
                 if (GetComponent<Animator>())
                     GetComponent<Animator>().enabled = false;
-
-                if (GetComponent<AiController>())
-                    GetComponent<AiController>().enabled = false;
 
                 if (GetComponent<HealthController>())
                     GetComponent<HealthController>().enabled = false;

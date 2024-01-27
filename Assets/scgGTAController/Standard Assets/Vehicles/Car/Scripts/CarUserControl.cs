@@ -6,10 +6,13 @@ namespace UnityStandardAssets.Vehicles.Car
     [RequireComponent(typeof (CarController))]
     public class CarUserControl : MonoBehaviour
     {
+        [Header("Input")]
+        InputActions input;
+
         private CarController m_Car; // the car controller we want to use
         public bool notInCar = true;
-        float h;
-        float v;
+        private Vector2 moveInput;
+        float handbrake;
 
         private void OnEnable()
         {
@@ -27,25 +30,48 @@ namespace UnityStandardAssets.Vehicles.Car
             m_Car = GetComponent<CarController>();
         }
 
+        private void Start()
+        {
+            input = new InputActions();
+
+            input.Player.Enable();
+
+            //Movement
+            input.Player.Move.performed += ctx =>
+            {
+                if (ctx.ReadValue<Vector2>().x > 0.5f || ctx.ReadValue<Vector2>().x < -0.5f)
+                    moveInput.x = ctx.ReadValue<Vector2>().x;
+                else
+                    moveInput.x = 0;
+
+                moveInput.y = ctx.ReadValue<Vector2>().y;
+            };
+
+            //Handbrake
+            input.Player.Jump.performed += ctx =>
+            {
+                handbrake = 1;
+            };
+
+            //Handbrake
+            input.Player.Jump.canceled += ctx =>
+            {
+                handbrake = 0;
+            };
+        }
+
         private void FixedUpdate()
         {
-            float handbrake = Input.GetAxis("Jump");
-            if (!notInCar)
+            if (notInCar)
             {
-                // pass the input to the car!
-                h = Input.GetAxis("Horizontal");
-                v = Input.GetAxis("Vertical");
-            }
-            else
-            {
-                h = 0;
-                v = 0;
+                moveInput.x = 0;
+                moveInput.y = 0;
                 handbrake = 0;
             }
 
 #if !MOBILE_INPUT
             
-            m_Car.Move(h, v, v, handbrake);
+            m_Car.Move(moveInput.x, moveInput.y, moveInput.y, handbrake);
 #else
             m_Car.Move(h, v, v, 0f);
 #endif

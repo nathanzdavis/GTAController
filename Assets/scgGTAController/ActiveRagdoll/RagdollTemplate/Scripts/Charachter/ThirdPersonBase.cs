@@ -150,7 +150,7 @@ namespace KovSoft.RagdollTemplate.Scripts.Charachter
                     {
                         if (gunc.aiming || gunc.firing)
                         {
-                            _turnAmount = Input.GetAxis("Mouse X");
+                            _turnAmount = GetComponent<CameraController>()._look.x;
                             transform.Rotate(0, _turnAmount, 0);
                         }
                         else

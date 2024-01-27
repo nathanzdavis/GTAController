@@ -1,172 +1,242 @@
-﻿//Code modified by SlapChickenGames
-//2024
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AiController : MonoBehaviour
+public class AIController : MonoBehaviour
 {
-    NavMeshAgent agent;
+    [HideInInspector] public Animator anim;
+    [HideInInspector] public bool alerted;
+    public float pauseDuration = 2f;
+    public float playerAvoidanceDistance = 5f;
+    public float avoidanceRotationSpeed = 2f;
+    public int randomWaypointInterval = 3;
+    public AudioClip[] screams;
+    public float chanceToPlayScream;
 
-    //public AiGunController AiGun;
+    private int waypointsVisitedCount = 0;
+    private List<Transform> waypoints = new List<Transform>();
+    private NavMeshAgent navMeshAgent;
+    private Transform targetWaypoint;
+    private int currentWaypointIndex = 0;
+    private bool isPaused = false;
+    private bool isMoving = false;
+    private bool isPlayerNear = false;
 
-    Transform player;
+    // Reference to PoliceAIBehavior
+    private PoliceAIBehavior policeAI;
 
-    public LayerMask groundLayer, playerLayer;
-
-    public float health;
-
-    //Patroling
-    public Vector3 walkPoint;
-    bool walkPointSet;
-    public float walkPointRange;
-    [HideInInspector] public bool moving;
-
-    //States
-    public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
-    public bool overrideAttack;
-
-    //Weapon orienting
-    public Transform spine;
-    public float m_ForwardAmount;
-    float m_TurnAmount;
-    Animator m_Animator;
-
-    //Increase this in correspondence with the navmesh agent speed and acceleration to match the animation with it
-    public float moveDamping;
-
-
-    Vector3 lastPos;
-    public Transform shootPoint;
-
-    private void Awake()
+    private void Start()
     {
-        //Find our player, the navmesh agent and the animator
-        player = GameObject.FindWithTag("hitCollider").transform;
-        agent = GetComponent<NavMeshAgent>();
-        m_Animator = GetComponent<Animator>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
+
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("waypoint"))
+        {
+            waypoints.Add(go.transform);
+        }
+
+        // Set a random waypoint as the starting point for visited count
+        currentWaypointIndex = Random.Range(0, waypoints.Count);
+
+        SetNextWaypoint();
+
+        // Get the PoliceAIBehavior component if it exists
+        policeAI = GetComponent<PoliceAIBehavior>();
     }
 
     private void Update()
     {
-        //Check for sight and attack range
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, playerLayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
-
-        //If we have not been attacked
-        if (!overrideAttack)
+        if (!isPaused)
         {
-            if (!playerInSightRange && !playerInAttackRange) Patroling();
-            if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-            if (playerInAttackRange && playerInSightRange)
-                AttackPlayerFixed();
-           // else if (AiGun.firing)
-          //      AiGun.FireCancel();
+            if (policeAI != null && alerted)
+            {
+                // If the cop is alerted, move toward the player using PoliceAIBehavior
+                MoveTowardsPlayer();
+            }
+            else if (!alerted)
+            {
+                Patrol();
+            }
+        }
+        if (!GetComponent<PoliceAIBehavior>())
+            anim.SetBool("Alerted", alerted && navMeshAgent.velocity.magnitude >= .5f);
+        else
+            anim.SetBool("Alerted", alerted);
+
+        anim.SetBool("Moving", isMoving && navMeshAgent.velocity.magnitude >= .5f);
+    }
+
+    private void Patrol()
+    {
+        isMoving = navMeshAgent.remainingDistance > navMeshAgent.stoppingDistance;
+
+        if (isMoving && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
+        {
+            isMoving = false;
+        }
+
+        if (!isMoving)
+        {
+            StartCoroutine(PauseBetweenWaypoints());
+        }
+
+        if (isPlayerNear)
+        {
+            AvoidPlayer();
+        }
+    }
+
+    private void MoveTowardsPlayer()
+    {
+        if (policeAI.player)
+        {
+            // Move toward the player if PoliceAIBehavior is alerted
+            navMeshAgent.SetDestination(policeAI.player.transform.position);
+
+            isMoving = true;
+        }
+    }
+
+    private IEnumerator PauseBetweenWaypoints()
+    {
+        isPaused = true;
+
+        navMeshAgent.isStopped = true;
+        yield return new WaitForSeconds(pauseDuration);
+        navMeshAgent.isStopped = false;
+
+        isPaused = false;
+
+        waypointsVisitedCount++;
+
+        if (waypointsVisitedCount >= randomWaypointInterval)
+        {
+            waypointsVisitedCount = 0;
+            SetRandomWaypoint();
         }
         else
         {
-            //Immeditaley attack player if attacked
-            if (!playerInAttackRange && player != null)
-                ChasePlayerAttack();
-
-            if (playerInAttackRange)
-                overrideAttack = false;
+            SetNextWaypoint();
         }
+    }
 
-        //Update the turn animation to our y axis rotation
-        m_TurnAmount = transform.rotation.y;
+    private void SetNextWaypoint()
+    {
+        targetWaypoint = waypoints[currentWaypointIndex];
+        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Count;
+        navMeshAgent.SetDestination(targetWaypoint.position);
+    }
 
-        //Check for movement and play the walking animation
-        if (transform.position != lastPos)
+    private void SetRandomWaypoint()
+    {
+        currentWaypointIndex = Random.Range(0, waypoints.Count);
+        targetWaypoint = waypoints[currentWaypointIndex];
+        navMeshAgent.SetDestination(targetWaypoint.position);
+        StartCoroutine(ResetSpeedAfterRandomWaypoint());
+    }
+
+    private void SetRandomDirection()
+    {
+        // Generate a random direction
+        Vector3 randomDirection = Random.insideUnitSphere.normalized * 25f;
+
+        // Set the distance to at least 25 meters
+        randomDirection.y = 0f;
+
+        // Calculate the target position
+        Vector3 targetPosition = transform.position + randomDirection;
+
+        // Set the NavMeshAgent destination directly
+        navMeshAgent.SetDestination(targetPosition);
+
+        navMeshAgent.speed = 3f;
+
+        // Optionally, reset speed after reaching the random waypoint
+        StartCoroutine(ResetSpeedAfterRandomWaypoint());
+    }
+
+    private IEnumerator ResetSpeedAfterRandomWaypoint()
+    {
+        if (!GetComponent<PoliceAIBehavior>()){
+            yield return new WaitForSeconds(15f);
+            // Wait until the AI reaches the random waypoint
+            navMeshAgent.speed = 1.75f; // Set the speed back to 1.75 after reaching the random waypoint
+
+            alerted = false;
+        }
+    }
+
+    public void Alert()
+    {
+        if (!GetComponent<PoliceAIBehavior>() && !alerted)
         {
-            m_ForwardAmount = 1 * moveDamping;
-            moving = true;
+            alerted = true;
+            navMeshAgent.isStopped = false;
+            isPaused = false;
+
+            StopAllCoroutines();
+
+            // Set the cost of the road layer to 1 so agents use it as wellnow
+            NavMesh.SetAreaCost(3, 1);
+
+            if (Random.Range(0, 100) < chanceToPlayScream)
+            {
+                StartCoroutine(PlayScreamSound());
+            }
+
+            SetRandomDirection();
         }
-        else
+    }
+
+    private IEnumerator PlayScreamSound()
+    {
+        yield return new WaitForSeconds(Random.Range((float)0, (float)3));
+        GetComponent<AudioSource>().PlayOneShot(screams[Random.Range(0, screams.Length - 1)]);
+    }
+
+    public void AvoidPlayer()
+    {
+        anim.SetTrigger("PlayerReaction");
+        StartCoroutine(AvoidanceDelay());
+    }
+
+    private IEnumerator AvoidanceDelay()
+    {
+        isPaused = true;
+
+        navMeshAgent.isStopped = true;
+
+        yield return new WaitForSeconds(3f);
+
+        Vector3 directionToPlayer = (transform.position - targetWaypoint.position).normalized;
+        Vector3 avoidanceRotation = Quaternion.Euler(0f, 90f, 0f) * directionToPlayer;
+
+        while (isPlayerNear)
         {
-            m_ForwardAmount = 0;
-            moving = false;
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + avoidanceRotation, avoidanceRotationSpeed * Time.deltaTime);
+            yield return null;
         }
 
-        lastPos = transform.position;
+        navMeshAgent.isStopped = false;
 
-        //Update our animator constantly
-        UpdateAnimator();
+        isPaused = false;
+        SetNextWaypoint();
     }
 
-    private void Patroling()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (!walkPointSet) SearchWalkPoint();
-
-        if (walkPointSet)
-            agent.SetDestination(walkPoint);
-
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
-
-        //Walkpoint reached
-        if (distanceToWalkPoint.magnitude < 1f)
-            walkPointSet = false;
+        if (collision.collider.CompareTag("Player"))
+        {
+            isPlayerNear = true;
+        }
     }
 
-    private void SearchWalkPoint()
+    private void OnCollisionExit(Collision collision)
     {
-        //Calculate random point in range
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
-
-        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
-
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, groundLayer))
-            walkPointSet = true;
-    }
-
-    public void ChasePlayer()
-    {
-        agent.SetDestination(player.position);
-    }
-
-    public void ChasePlayerAttack()
-    {
-        agent.SetDestination(player.position);
-        AttackPlayer();
-    }
-
-    public void AttackPlayerFixed()
-    {
-        //Make sure we don't move while shooting
-        agent.SetDestination(transform.position);
-
-        Vector3 targetPostitionXZ = new Vector3(player.position.x, transform.position.y, player.position.z);
-        transform.LookAt(targetPostitionXZ);
-        shootPoint.LookAt(player);
-
-        //Fire the gun located in our hand bone
-       // AiGun.Fire();
-    }
-
-    public void AttackPlayer()
-    {
-        //Move and shoot
-
-        Vector3 targetPostitionXZ = new Vector3(player.position.x, transform.position.y, player.position.z);
-        transform.LookAt(targetPostitionXZ);
-        shootPoint.LookAt(player);
-        //Fire the gun located in our hand bone
-       // AiGun.Fire();
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, sightRange);
-    }
-
-    public void UpdateAnimator()
-    {
-        //Update the blend trees
-        m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
-        m_Animator.SetFloat("Turn", m_TurnAmount * 0.3f, 0.1f, Time.deltaTime);
+        if (collision.collider.CompareTag("Player"))
+        {
+            isPlayerNear = false;
+        }
     }
 }

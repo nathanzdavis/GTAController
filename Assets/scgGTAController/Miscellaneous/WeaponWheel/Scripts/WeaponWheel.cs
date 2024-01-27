@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace GTAWeaponWheel.Scripts
@@ -18,7 +19,6 @@ namespace GTAWeaponWheel.Scripts
         private Camera playerCamera;
         private GameObject player;
         [SerializeField] private float targetTimeScale = 0.3f, timeToGoToTargetTimeScale = 0.1f;  //Adds A Slow Motion Effect when weapon wheel is enabled
-        private Vector2 selectionPos;
         private float m_TimeV;
         
         [Serializable]
@@ -43,6 +43,11 @@ namespace GTAWeaponWheel.Scripts
         private Vector2[] pos = new Vector2[9];
         private Vector3 start, end;
         private Vector2 mousePos;
+
+        [Header("Selection")]
+        private Vector2 selectionPos;
+        public float stickThreshold = 0f;
+        public float selectionCooldown = 0f;
 
         public bool WheelEnabled => m_WheelEnabled;
 
@@ -128,82 +133,30 @@ namespace GTAWeaponWheel.Scripts
                 pos[i] = playerCamera.WorldToScreenPoint(dots[i].position);
             }
 
-            Vector2 inputPos;
-
-            /*
-            // Check if controller input is available
-            if (joystickPos.magnitude > 0)
+            if (selectionPos.magnitude > 0.5f)
             {
-                
+                SelectWeapon(selectionPos);
             }
-            else
-            {   
-                // Check if mouse is over the wheel
-                mousePos = Input.mousePosition;
-                inputPos = new Vector2(mousePos.x, mousePos.y);
-            }
-            */
-
-            // Define a class variable to store the last angle
-            float lastAngle = 0.0f;
-
-            // Only initialize lastAngle once (e.g., in Start or Awake method)
-            // lastAngle = 0.0f;
-
-            // Assuming inputVector is your joystick or mouse input
-            float horizontalInput = selectionPos.x;
-            float verticalInput = selectionPos.y;
-
-            // Check if only horizontal input is given
-            if (Mathf.Approximately(verticalInput, 0.0f))
-            {
-                // Use horizontal input to move left or right
-                float angle = Mathf.Sign(horizontalInput) * 90.0f;
-
-                // Add the new angle to the last angle
-                lastAngle += angle;
-            }
-            // Check if only vertical input is given
-            else if (Mathf.Approximately(horizontalInput, 0.0f))
-            {
-                // Use vertical input to move up or down
-                float angle = -Mathf.Sign(verticalInput) * 180.0f;
-
-                // Add the new angle to the last angle
-                lastAngle += angle;
-            }
-            // Handle diagonal input
-            else
-            {
-                // Use both horizontal and vertical input for circular motion
-                float angle = Mathf.Atan2(verticalInput, horizontalInput) * Mathf.Rad2Deg;
-
-                if (angle < 0)
-                {
-                    angle += 360; // Ensure the angle is non-negative
-                }
-
-                // Reverse the direction by subtracting the new angle from the last angle
-                lastAngle += angle;
-
-                // Ensure lastAngle stays within a reasonable range
-                if (lastAngle < 0)
-                {
-                    lastAngle += 360;
-                }
-                else if (lastAngle >= 360)
-                {
-                    lastAngle -= 360;
-                }
-            }
-
-            // Calculate the selected slot based on the updated angle
-            int selectedSlot = Mathf.FloorToInt(lastAngle / 45.0f) % 8;
-
-            EnableHighlight(selectedSlot);
-            WeaponManager.instance.SwitchWeapon(selectedSlot);
-
         }
+
+        void SelectWeapon(Vector2 stickInput)
+        {
+            float angle = Mathf.Atan2(stickInput.x, -stickInput.y) * Mathf.Rad2Deg;
+            angle = (angle + 360) % 360;
+
+            // Calculate the sector size based on the number of items on the wheel
+            float sectorSize = 360f / 8f;
+
+            // Calculate the selected sector
+            int selectedSector = Mathf.FloorToInt((angle + sectorSize / 2) / sectorSize) % 8;
+
+            // Highlight the selected slot and switch the weapon
+            EnableHighlight(selectedSector);
+            WeaponManager.instance.SwitchWeapon(selectedSector);
+
+            Debug.Log("Selected Weapon: " + selectedSector);
+        }
+
         // Start is called before the first frame update
         private void Start()
         {
@@ -256,8 +209,6 @@ namespace GTAWeaponWheel.Scripts
             if(wheelParent != null)
                 wheelParent.SetActive(true);
             m_WheelEnabled = true;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
             if (blur != null)
                 blur.SetActive(true);
         }
