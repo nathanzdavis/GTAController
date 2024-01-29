@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class CameraController : MonoBehaviour
 {
-    [Header("Input")]
+    
     InputActions input;
 
     [HideInInspector] public GameObject followTransform;

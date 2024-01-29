@@ -1,18 +1,28 @@
 using System;
 using UnityEngine;
+using static DroppedItem;
 
 namespace UnityStandardAssets.Vehicles.Car
 {
     [RequireComponent(typeof (CarController))]
     public class CarUserControl : MonoBehaviour
-    {
-        [Header("Input")]
+    {        
         InputActions input;
+        public enum CarType
+        {
+            Regular,
+            Police
+        }
 
-        private CarController m_Car; // the car controller we want to use
+        public CarType carType;
+        public GameObject[] headlights;
+        public GameObject sirenGroup;
         public bool notInCar = true;
+        
+        private CarController m_Car; // the car controller we want to use
         private Vector2 moveInput;
-        float handbrake;
+        private float handbrake;
+
 
         private void OnEnable()
         {
@@ -53,10 +63,34 @@ namespace UnityStandardAssets.Vehicles.Car
                 handbrake = 1;
             };
 
-            //Handbrake
             input.Player.Jump.canceled += ctx =>
             {
                 handbrake = 0;
+            };
+
+            //Lights
+            input.Player.CarLights.performed += ctx =>
+            {
+                if (!notInCar)
+                {
+                    foreach (GameObject go in headlights)
+                    {
+                        go.SetActive(!go.activeSelf);
+                    }
+                }
+            };
+
+            //Auxillary
+            input.Player.CarAuxillary.performed += ctx =>
+            {
+                // Check the car type and perform corresponding action
+                switch (carType)
+                {
+                    case CarType.Police:
+                        sirenGroup.SetActive(!sirenGroup.activeSelf);
+                        break;
+                        // Add more cases for other item types if needed
+                }
             };
         }
 

@@ -9,7 +9,7 @@ namespace KovSoft.RagdollTemplate.Scripts.Charachter
 	[RequireComponent(typeof(IThirdPerson))]
 	public sealed class ThirdPersonControl : MonoBehaviour
     {
-        [Header("Input")]
+        
         InputActions input;
 
         [Header("Locomotion")]
@@ -141,10 +141,6 @@ namespace KovSoft.RagdollTemplate.Scripts.Charachter
 			// calculate move direction and magnitude to pass to character
 			Vector3 camForward = new Vector3(_camTransform.forward.x, 0, _camTransform.forward.z).normalized;
             Vector3 move = (v * camForward + h * _camTransform.right) * jogSpeed;
-            if (h != 0 && v != 0)
-            {
-                move *= .7f;
-            }
 
 			if (sprintPressed && sprintAmount > 0)
 			{

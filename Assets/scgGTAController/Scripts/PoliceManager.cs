@@ -69,7 +69,7 @@ public class PoliceManager : MonoBehaviour
         AICarController carController = policeCar.GetComponent<AICarController>();
         if (carController)
         {
-            carController.policeSirenSource.Play();
+            policeCar.GetComponent<CarUserControl>().sirenGroup.SetActive(true);
             carController.enabled = true;
             carController.targetTransform = policeSteeringAI.transform;
         }

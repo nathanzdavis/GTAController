@@ -27,7 +27,7 @@ namespace scgGTAController
         public enum ShootTypes { SemiAuto, FullAuto, BoltAction };
         public enum HoldType { Normal, Dual};
 
-        [Header("Input")]
+        
         InputActions input;
         private bool firePressed;
         private bool aimPressed;

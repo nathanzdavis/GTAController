@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class HandIK : MonoBehaviour
 {
-    private Animator animator;  // Reference to the Animator component
-    public Transform targetPoint;  // The target point where you want the hand to reach
+    [HideInInspector] public Transform targetPoint;  // The target point where you want the hand to reach
     public AvatarIKGoal ikGoal = AvatarIKGoal.RightHand;  // Specify the IK goal (RightHand or LeftHand)
+
+    private Animator animator;  // Reference to the Animator component
 
     private void Start()
     {

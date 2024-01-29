@@ -9,7 +9,6 @@ namespace UnityStandardAssets.Vehicles.Car
     {
         private CarController m_Car;
         public float speed;
-        public AudioSource policeSirenSource;
 
         public Transform targetTransform; // Specify the target transform here
         private Transform player;
@@ -102,7 +101,7 @@ namespace UnityStandardAssets.Vehicles.Car
                 }
                 else if (Vector3.Distance(targetTransform.position, transform.position) < 10 && m_Car.CurrentSpeed < 5f)
                 {
-                    PoliceManager.instance.SpawnPolice(GetComponentInChildren<CarDoorTrigger>().enterCarTransform);
+                    PoliceManager.instance.SpawnPolice(GetComponentInChildren<VehicleDoorTrigger>().enterCarTransform);
                     Destroy(targetTransform.gameObject);
                     enabled = false;
                 }

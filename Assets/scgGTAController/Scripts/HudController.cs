@@ -5,6 +5,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,10 +19,12 @@ namespace scgGTAController
         public Slider uiBullets;
         public GameObject crosshair;
         public GameObject deathText;
+        public TextMeshProUGUI totalMoney;
+        public TextMeshProUGUI changedMoney;
 
         public static HudController instance;
 
-        private void Start()
+        private void Awake()
         {
             instance = this;
         }

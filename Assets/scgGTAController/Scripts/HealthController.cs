@@ -38,6 +38,14 @@ namespace scgGTAController
         public float regenSpeed;
         bool alreadyRegenning;
 
+        [Header("Drops")]
+        public bool dropItem;
+        public GameObject item;
+        public int dropChance;
+
+        public int amountMin;
+        public int amountMax;
+
         void Start()
         {
             //Get a reference to the original reset time
@@ -146,11 +154,6 @@ namespace scgGTAController
                 //Spawn ragdoll and destroy us
                 tempdoll = Instantiate(ragdoll, this.transform.position, this.transform.rotation) as GameObject;
 
-
-                //Destroy ragdoll if we are an AI after deadTime seconds
-                if (isAiOrDummy)
-                    Destroy(tempdoll, deadTime);
-
                 if (tag == "Player")
                 {
                     Time.timeScale = .35f;
@@ -171,52 +174,37 @@ namespace scgGTAController
                     HudController.instance.deathText.SetActive(true);
                 }
 
+                //Destroy ragdoll if we are an AI after deadTime seconds
+                if (isAiOrDummy)
+                {
+                    Destroy(tempdoll, deadTime);
+
+                    if (dropItem)
+                    {
+                        if (Random.Range(0, 100) < dropChance)
+                        {
+                            GameObject droppedItem = Instantiate(item, transform.position, transform.rotation);
+                            droppedItem.GetComponent<DroppedItem>().amount = Random.Range(amountMin, amountMax);
+                        }
+                    }
+                }
+
                 //Tell the ragdoll if we are a player or not so it knows to move our camera or not to the ragdoll
                 Destroy(gameObject);
 
             }
-            else if (isAiOrDummy)
-            {
-                //If we aren't spawning a ragdoll, then disable all important scripts on us and destroy after deadtime seconds
-                //This feature is for AI with the ragdoll built in for a more realistic death
-                if (GetComponent<Animator>())
-                    GetComponent<Animator>().enabled = false;
-
-                if (GetComponent<HealthController>())
-                    GetComponent<HealthController>().enabled = false;
-
-                if (GetComponent<SimpleFootsteps>())
-                    GetComponent<SimpleFootsteps>().enabled = false;
-
-                if (GetComponent<NavMeshAgent>())
-                    GetComponent<NavMeshAgent>().enabled = false;
-
-                if (GetComponentInChildren<Adjuster>())
-                    GetComponentInChildren<Adjuster>().enabled = false;
-
-                if (GetComponent<PoliceAIBehavior>())
-                {
-                    PoliceManager.instance.policeNPCs.Remove(gameObject);
-                }
-
-                Destroy(gameObject, deadTime);
-            }
-            else
-            {
-                //Die
-            }
         }
-      
+
         public void DamageByMelee(Vector3 pos, float Force, int Damage)
         {
             health -= Damage;
 
-            //If kicked enough, then die
+            //If meleed enough, then die
             if (health <= 0)
             {
                 meleeDeath = true;
-                tempdoll = Instantiate(ragdoll, this.transform.position, this.transform.rotation) as GameObject;
-                Destroy(gameObject);
+
+                Die();
 
                 foreach (Rigidbody rb in tempdoll.GetComponentsInChildren<Rigidbody>())
                 {

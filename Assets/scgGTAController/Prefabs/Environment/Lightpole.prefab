@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 7458737203777595236}
   - component: {fileID: 7458737203777595234}
   - component: {fileID: 7458737203777595235}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7458737203777595236
 Transform:
@@ -97,7 +97,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7458737204607367852
 Transform:
@@ -129,12 +129,12 @@ GameObject:
   - component: {fileID: 7458737205400445066}
   - component: {fileID: 7458737205400445067}
   - component: {fileID: 7458737205400445068}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Pole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7458737205400445069
 Transform:
@@ -231,7 +231,7 @@ GameObject:
   m_TagString: lightPoleLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7458737205646460222
 Transform:
