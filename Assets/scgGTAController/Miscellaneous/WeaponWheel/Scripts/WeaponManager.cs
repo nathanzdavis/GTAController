@@ -50,28 +50,5 @@ namespace GTAWeaponWheel.Scripts
                 }
             }
         }
-
-        // Update is called once per frame
-        private void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.Alpha1))
-                SwitchWeapon(0);
-            else if(Input.GetKeyDown(KeyCode.Alpha2))
-                SwitchWeapon(1);
-            else if(Input.GetKeyDown(KeyCode.Alpha3))
-                SwitchWeapon(2);
-            else if(Input.GetKeyDown(KeyCode.Alpha4))
-                SwitchWeapon(3);
-            else if(Input.GetKeyDown(KeyCode.Alpha5))
-                SwitchWeapon(4);
-            else if(Input.GetKeyDown(KeyCode.Alpha6))
-                SwitchWeapon(5);
-            else if (Input.GetKeyDown(KeyCode.Alpha7))
-                SwitchWeapon(6);
-            else if(Input.GetKeyDown(KeyCode.Alpha8))
-                SwitchWeapon(7);
-            else if(Input.GetKeyDown(KeyCode.Alpha9))
-                SwitchWeapon(8);
-        }
     }
 }

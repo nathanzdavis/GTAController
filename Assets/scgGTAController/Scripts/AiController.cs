@@ -13,6 +13,7 @@ public class AIController : MonoBehaviour
     public int randomWaypointInterval = 3;
     public AudioClip[] screams;
     public float chanceToPlayScream;
+    public bool dontPatrol;
 
     private int waypointsVisitedCount = 0;
     private List<Transform> waypoints = new List<Transform>();
@@ -54,7 +55,7 @@ public class AIController : MonoBehaviour
                 // If the cop is alerted, move toward the player using PoliceAIBehavior
                 MoveTowardsPlayer();
             }
-            else if (!alerted)
+            else if (!alerted && !dontPatrol)
             {
                 Patrol();
             }

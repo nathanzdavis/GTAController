@@ -57,81 +57,84 @@ public class HelicopterController : MonoBehaviour
 
         input.Player.Enable();
 
-        //Movement
-        input.Player.Move.performed += ctx =>
+        if (IsInSeat)
         {
-            if (!IsOnGround)
+            //Movement
+            input.Player.Move.performed += ctx =>
             {
-                hMove = ctx.ReadValue<Vector2>();
-
-                // stable forward
-                if (hMove.y > 0)
+                if (!IsOnGround)
                 {
-                    tempY = Time.fixedDeltaTime;
+                    hMove = ctx.ReadValue<Vector2>();
 
-                    if (speedDownPressed)
+                    // stable forward
+                    if (hMove.y > 0)
                     {
-                        tempY = -Time.fixedDeltaTime;
-                    }
-                }
-                else if (hMove.y < 0)
-                {
-                    tempY = Time.fixedDeltaTime;
+                        tempY = Time.fixedDeltaTime;
 
-                    if (speedDownPressed)
+                        if (speedDownPressed)
+                        {
+                            tempY = -Time.fixedDeltaTime;
+                        }
+                    }
+                    else if (hMove.y < 0)
                     {
-                        tempY = -Time.fixedDeltaTime;
+                        tempY = Time.fixedDeltaTime;
+
+                        if (speedDownPressed)
+                        {
+                            tempY = -Time.fixedDeltaTime;
+                        }
                     }
-                }
 
-                // stable lurn
-                if (hMove.x > 0)
-                {
-                    tempX = -Time.fixedDeltaTime;
-
-                    if (speedDownPressed)
-                    {
-                        tempX = Time.fixedDeltaTime;
-                    }
-                }
-                else if (hMove.x < 0)
-                {
-                    tempX = Time.fixedDeltaTime;
-
-                    if (speedDownPressed)
+                    // stable lurn
+                    if (hMove.x > 0)
                     {
                         tempX = -Time.fixedDeltaTime;
+
+                        if (speedDownPressed)
+                        {
+                            tempX = Time.fixedDeltaTime;
+                        }
                     }
+                    else if (hMove.x < 0)
+                    {
+                        tempX = Time.fixedDeltaTime;
+
+                        if (speedDownPressed)
+                        {
+                            tempX = -Time.fixedDeltaTime;
+                        }
+                    }
+
+                    hMove.x += tempX;
+                    hMove.x = Mathf.Clamp(hMove.x, -1, 1);
+
+                    hMove.y += tempY;
+                    hMove.y = Mathf.Clamp(hMove.y, -1, 1);
                 }
 
-                hMove.x += tempX;
-                hMove.x = Mathf.Clamp(hMove.x, -1, 1);
+            };
 
-                hMove.y += tempY;
-                hMove.y = Mathf.Clamp(hMove.y, -1, 1);
-            }
+            input.Player.Jump.performed += ctx =>
+            {
+                speedUpPressed = true;
+            };
 
-        };
+            input.Player.Jump.canceled += ctx =>
+            {
+                speedUpPressed = false;
+            };
 
-        input.Player.Jump.performed += ctx =>
-        {
-            speedUpPressed = true;
-        };
+            input.Player.Crouch.performed += ctx =>
+            {
+                speedDownPressed = true;
+            };
 
-        input.Player.Jump.canceled += ctx =>
-        {
-            speedUpPressed = false;
-        };
-
-        input.Player.Crouch.performed += ctx =>
-        {
-            speedDownPressed = true;
-        };
-
-        input.Player.Crouch.canceled += ctx =>
-        {
-            speedDownPressed = false;
-        };
+            input.Player.Crouch.canceled += ctx =>
+            {
+                speedDownPressed = false;
+            };
+        }      
     }
 
     private void FixedUpdate()
@@ -222,8 +225,6 @@ public class HelicopterController : MonoBehaviour
 
     private void CheckGround()
     {
-        raycastDistance = 1f;
-
         // Cast a ray downward
         if (Physics.Raycast(transform.position, Vector3.down, raycastDistance, groundLayer))
         {

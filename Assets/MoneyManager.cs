@@ -12,7 +12,7 @@ public class MoneyManager : MonoBehaviour
         hc = HudController.instance;
 
         hc.changedMoney.text = "";
-        hc.totalMoney.text = "0";
+        hc.totalMoney.text = "$0";
     }
 
     public void ChangeMoney(int amount)
@@ -23,7 +23,7 @@ public class MoneyManager : MonoBehaviour
         if (amount > 0)
         {
             hc.changedMoney.color = Color.white;
-            hc.changedMoney.text = "+" + amount;
+            hc.changedMoney.text = "+$" + amount;
 
             CancelInvoke("ChangedMoneyHide");
             Invoke("ChangedMoneyHide", changedMoneyHideTime);
@@ -31,7 +31,7 @@ public class MoneyManager : MonoBehaviour
         else
         {
             hc.changedMoney.color = Color.red;
-            hc.changedMoney.text = "-" + amount;
+            hc.changedMoney.text = "-$" + amount;
         }
 
         hc.totalMoney.text = "$" + totalMoney.ToString();

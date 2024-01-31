@@ -35,19 +35,16 @@ namespace GTAWeaponWheel.Scripts
             }
         }
 
-        [SerializeField] private Wheel[] wheels = new Wheel[8];
+        public Wheel[] wheels = new Wheel[8];
 
         
         [Header("Dots & Lines")]
         [SerializeField] private Transform[] dots = new Transform[9];
         private Vector2[] pos = new Vector2[9];
         private Vector3 start, end;
-        private Vector2 mousePos;
 
         [Header("Selection")]
         private Vector2 selectionPos;
-        public float stickThreshold = 0f;
-        public float selectionCooldown = 0f;
 
         public bool WheelEnabled => m_WheelEnabled;
 
@@ -106,9 +103,14 @@ namespace GTAWeaponWheel.Scripts
                 if (wheels[i].wheel != null && wheels[i].highlightSprite != null)
                 {
                     if(i == index)
+                    {
                         wheels[i].wheel.sprite = wheels[i].highlightSprite;
+                    }
                     else
+                    {
                         wheels[i].wheel.sprite = wheels[i].NormalSprite;
+
+                    }
                 }
             }
         }

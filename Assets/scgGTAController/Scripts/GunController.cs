@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using KovSoft.RagdollTemplate.Scripts.Charachter;
 using GTAWeaponWheel.Scripts;
 using TMPro;
+using Cinemachine;
 
 namespace scgGTAController
 {
@@ -51,6 +52,7 @@ namespace scgGTAController
 
         [Header("Camera")]
         private GameObject mainCam;
+        private CinemachineVirtualCamera virtualCam;
         Vector3 originalCamPos;
 
         [Header("Shooting")]
@@ -122,8 +124,6 @@ namespace scgGTAController
                 anim.SetLayerWeight(2, 0);
             }
 
-            originalCamFov = Camera.main.GetComponent<Camera>().fieldOfView;
-
             transform.root.gameObject.GetComponent<HandIK>().targetPoint = leftHandHoldPoint;
         }
 
@@ -172,11 +172,14 @@ namespace scgGTAController
             };
 
             mainCam = Camera.main.gameObject;
+            virtualCam = GameObject.FindGameObjectWithTag("playerCamera").GetComponent<CinemachineVirtualCamera>();
             lookTarget = GameObject.FindGameObjectWithTag("playerFollowObj").transform.GetChild(0);
 
             //Set the ammo count
             bulletsInMag = bulletsPerMag;
             originalCamPos = mainCam.transform.localPosition;
+
+            originalCamFov = virtualCam.m_Lens.FieldOfView;
         }
 
         private void Update()
@@ -267,6 +270,7 @@ namespace scgGTAController
 
             if (reloadPressed && !reloading && !firing && bulletsInMag < bulletsPerMag && totalBullets > 0)
             {
+                transform.root.GetComponent<HandIK>().enabled = false;
                 anim.SetBool("reload", true);
                 reloading = true;
                 gameObject.GetComponent<AudioSource>().PlayOneShot(reloadSound);
@@ -358,7 +362,7 @@ namespace scgGTAController
 
         void aimingOutFinished()
         {
-            mainCam.GetComponent<Camera>().fieldOfView = originalCamFov;
+            virtualCam.m_Lens.FieldOfView = originalCamFov;
             mainCam.transform.localPosition = originalCamPos;
             aimPosition = originalAimOffsetCamPos;
             aimFinished = true;
@@ -368,14 +372,14 @@ namespace scgGTAController
         {
             if (aimTimeElapsed < aimInOutDuration)
             {
-                mainCam.GetComponent<Camera>().fieldOfView = Mathf.Lerp(originalCamFov, zoomInAmount, aimTimeElapsed / aimInOutDuration);
+                virtualCam.m_Lens.FieldOfView = Mathf.Lerp(originalCamFov, zoomInAmount, aimTimeElapsed / aimInOutDuration);
                 mainCam.transform.localPosition = Vector3.Lerp(originalCamPos, aimPosition, aimTimeElapsed / aimInOutDuration);
                 aimTimeElapsed += Time.deltaTime;
             }
             else
             {
                 mainCam.GetComponent<Camera>().nearClipPlane = 0.01f;
-                mainCam.GetComponent<Camera>().fieldOfView = zoomInAmount;
+                virtualCam.m_Lens.FieldOfView = zoomInAmount;
                 mainCam.transform.localPosition = new Vector3(aimPosition.x, aimPosition.y, aimPosition.z);
             }
         }
@@ -383,13 +387,13 @@ namespace scgGTAController
         {
             if (aimTimeElapsed < aimInOutDuration)
             {
-                mainCam.GetComponent<Camera>().fieldOfView = Mathf.Lerp(zoomInAmount, originalCamFov, aimTimeElapsed / aimInOutDuration);
+                virtualCam.m_Lens.FieldOfView = Mathf.Lerp(zoomInAmount, originalCamFov, aimTimeElapsed / aimInOutDuration);
                 mainCam.transform.localPosition = Vector3.Lerp(aimPosition, originalCamPos, aimTimeElapsed / aimInOutDuration);
                 aimTimeElapsed += Time.deltaTime;
             }
             else
             {
-                mainCam.GetComponent<Camera>().fieldOfView = originalCamFov;
+                virtualCam.m_Lens.FieldOfView = originalCamFov;
                 mainCam.transform.localPosition = originalCamPos;
             }
         }
@@ -418,6 +422,7 @@ namespace scgGTAController
         {
             reloading = false;
             anim.SetBool("reload", false);
+            transform.root.GetComponent<HandIK>().enabled = true;
             int bulletsToRemove = (bulletsPerMag - bulletsInMag);
             if (totalBullets >= bulletsPerMag)
             {

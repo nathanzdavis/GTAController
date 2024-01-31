@@ -1189,7 +1189,7 @@ Transform:
   - {fileID: 2963769567091724143}
   - {fileID: 1818380024825821797}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2528711935394009790
 Animator:
@@ -7374,11 +7374,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3bf2ef73e104e04e83d3fefdd0cb653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vehicleType: 0
   offsetCamCollisionDistance: 7
   carEnableTime: 1.5
   enterCarTransform: {fileID: 2528711936247857637}
   carFocusTransform: {fileID: 2528711935799941798}
   seatPos: {fileID: 2528711937117005753}
+  cameraDistance: 7
 --- !u!1 &2528711936809868563
 GameObject:
   m_ObjectHideFlags: 0

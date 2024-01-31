@@ -83,13 +83,16 @@ namespace UnityStandardAssets.Vehicles.Car
             //Auxillary
             input.Player.CarAuxillary.performed += ctx =>
             {
-                // Check the car type and perform corresponding action
-                switch (carType)
+                if (!notInCar)
                 {
-                    case CarType.Police:
-                        sirenGroup.SetActive(!sirenGroup.activeSelf);
-                        break;
-                        // Add more cases for other item types if needed
+                    // Check the car type and perform corresponding action
+                    switch (carType)
+                    {
+                        case CarType.Police:
+                            sirenGroup.SetActive(!sirenGroup.activeSelf);
+                            break;
+                            // Add more cases for other item types if needed
+                    }
                 }
             };
         }

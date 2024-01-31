@@ -23,7 +23,7 @@ namespace KovSoft.RagdollTemplate.Scripts.Charachter
 		private bool _crouchPressed;
         public float sprintAmount;
         public float sprintDecrement;
-        private Vector2 moveInput;
+        [HideInInspector] public Vector2 moveInput;
         [HideInInspector] public bool sprintPressed;
 
         [Header("Punching")]

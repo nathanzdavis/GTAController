@@ -22,7 +22,7 @@ namespace GTAWeaponWheel.Scripts
             if(_text == null || WeaponManager.instance == null || WeaponManager.instance.CurrentWeapon == null)
                     return;
 
-            _text.text = WeaponManager.instance.CurrentWeapon.name;
+            _text.text = WeaponManager.instance.CurrentWeapon.weaponName;
 
         }
     }

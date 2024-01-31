@@ -30,6 +30,7 @@ public class VehicleDoorTrigger : MonoBehaviour
     bool lockPlayer;
     public Transform seatPos;
     bool transitioning;
+    public float cameraDistance;
     private CinemachineVirtualCamera carCamera;
     private CinemachineVirtualCamera playerCamera;
 
@@ -42,7 +43,7 @@ public class VehicleDoorTrigger : MonoBehaviour
 
         input.Player.Enable();
 
-        //Interaction input
+        // Interaction input
         input.Player.Interact.performed += ctx =>
         {
             TryEnterVehicle();
@@ -86,8 +87,7 @@ public class VehicleDoorTrigger : MonoBehaviour
                         player.GetComponent<ThirdPersonControl>().enabled = false;
                         player.GetComponent<ThirdPersonRigid>().enabled = false;
                         player.GetComponent<Ragdoll>().enabled = false;
-                        player.transform.position = enterCarTransform.position;
-                        player.transform.eulerAngles = enterCarTransform.eulerAngles;
+                        player.GetComponent<IKFeet>().enabled = false;
                         player.GetComponent<Animator>().SetBool("doorOpen", true);
                         transform.root.gameObject.GetComponent<Animator>().SetBool("doorOpen", true);
                         break;
@@ -95,11 +95,19 @@ public class VehicleDoorTrigger : MonoBehaviour
                         player.GetComponent<ThirdPersonControl>().enabled = false;
                         player.GetComponent<ThirdPersonRigid>().enabled = false;
                         player.GetComponent<Ragdoll>().enabled = false;
-                        player.transform.position = enterCarTransform.position;
-                        player.transform.eulerAngles = enterCarTransform.eulerAngles;
                         player.GetComponent<Animator>().SetBool("doorOpen", true);
                         transform.root.gameObject.GetComponent<Animator>().SetBool("doorOpen", true);
                         break;
+                }
+                foreach (Collider c in transform.root.GetComponents<Collider>())
+                {
+                    if (!c.isTrigger)
+                        Physics.IgnoreCollision(player.GetComponent<Collider>(), c, true);
+                }
+                foreach (Collider c in transform.root.GetComponentsInChildren<Collider>())
+                {
+                    if (!c.isTrigger)
+                        Physics.IgnoreCollision(player.GetComponent<Collider>(), c, true);
                 }
             }
             else
@@ -126,7 +134,16 @@ public class VehicleDoorTrigger : MonoBehaviour
                         transform.root.gameObject.GetComponent<Animator>().SetBool("doorOpen", false);
                         break;
                 }
-
+                foreach (Collider c in transform.root.GetComponents<Collider>())
+                {
+                    if (!c.isTrigger)
+                        Physics.IgnoreCollision(player.GetComponent<Collider>(), c, false);
+                }
+                foreach (Collider c in transform.root.GetComponentsInChildren<Collider>())
+                {
+                    if (!c.isTrigger)
+                        Physics.IgnoreCollision(player.GetComponent<Collider>(), c, false);
+                }
             }
         }
     }
@@ -138,10 +155,18 @@ public class VehicleDoorTrigger : MonoBehaviour
             player.transform.position = seatPos.position;
             player.transform.eulerAngles = seatPos.eulerAngles;
         }
+        
+        if (transitioning)
+        {
+            player.transform.position = enterCarTransform.position;
+            player.transform.eulerAngles = enterCarTransform.eulerAngles;
+        }
     }
 
     void enableVehicle()
     {
+        CinemachineComponentBase componentBase = carCamera.GetCinemachineComponent(CinemachineCore.Stage.Body);
+
         // Check the vehicle type and perform corresponding action
         switch (vehicleType)
         {
@@ -159,6 +184,10 @@ public class VehicleDoorTrigger : MonoBehaviour
                 carFollowObj.transform.rotation = carFocusTransform.rotation;
                 carFollowObj.GetComponent<StickToObject>().target = carFocusTransform;
                 transform.root.GetComponent<CameraController>().enabled = true;
+                if (componentBase is Cinemachine3rdPersonFollow)
+                {
+                    (componentBase as Cinemachine3rdPersonFollow).CameraDistance = cameraDistance;
+                }
                 carCamera.Priority = 1;
                 playerCamera.Priority = 0;
                 transitioning = false;
@@ -176,6 +205,10 @@ public class VehicleDoorTrigger : MonoBehaviour
                 helicopterFollowObj.transform.rotation = carFocusTransform.rotation;
                 helicopterFollowObj.GetComponent<StickToObject>().target = carFocusTransform;
                 transform.root.GetComponent<CameraController>().enabled = true;
+                if (componentBase is Cinemachine3rdPersonFollow)
+                {
+                    (componentBase as Cinemachine3rdPersonFollow).CameraDistance = cameraDistance;
+                }
                 carCamera.Priority = 1;
                 playerCamera.Priority = 0;
                 transitioning = false;
@@ -197,6 +230,7 @@ public class VehicleDoorTrigger : MonoBehaviour
                 player.GetComponent<IKFeet>().enabled = true;
                 player.GetComponent<ThirdPersonRigid>().enabled = true;
                 player.GetComponent<Ragdoll>().enabled = true;
+                player.GetComponent<IKFeet>().enabled = true;
                 player.transform.eulerAngles = new Vector3(0, player.transform.eulerAngles.y, 0);
                 player.GetComponent<ThirdPersonControl>().state = "";
                 carCamera.Priority = 0;
@@ -211,6 +245,7 @@ public class VehicleDoorTrigger : MonoBehaviour
                 player.GetComponent<IKFeet>().enabled = true;
                 player.GetComponent<ThirdPersonRigid>().enabled = true;
                 player.GetComponent<Ragdoll>().enabled = true;
+                player.GetComponent<IKFeet>().enabled = true;
                 player.transform.eulerAngles = new Vector3(0, player.transform.eulerAngles.y, 0);
                 player.GetComponent<ThirdPersonControl>().state = "";
                 carCamera.Priority = 0;
