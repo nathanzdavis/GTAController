@@ -23880,8 +23880,9 @@ MonoBehaviour:
   - {fileID: 971081579}
   - {fileID: 2063147187}
   - {fileID: 60858516}
-  navigationDelay: 0.2
   zoomFOV: 30
+  popInOutTime: 0.15
+  popDistance: -0.5
 --- !u!65 &1833251439
 BoxCollider:
   m_ObjectHideFlags: 0
