@@ -23,6 +23,7 @@ namespace KovSoft.RagdollTemplate.Scripts.Charachter
 		private bool _crouchPressed;
         public float sprintAmount;
         public float sprintDecrement;
+        public bool horizontalLocked;
         [HideInInspector] public Vector2 moveInput;
         [HideInInspector] public bool sprintPressed;
 
@@ -134,12 +135,17 @@ namespace KovSoft.RagdollTemplate.Scripts.Charachter
 
         private void FixedUpdate()
 		{
-			// read user input: movement
-			float h = moveInput.x;
-			float v = moveInput.y;
-			
-			// calculate move direction and magnitude to pass to character
-			Vector3 camForward = new Vector3(_camTransform.forward.x, 0, _camTransform.forward.z).normalized;
+            float h = 0;
+            float v = moveInput.y;
+
+            // Make sure we are not inside a lockzone
+            if (!horizontalLocked)
+            {
+                h = moveInput.x;
+            }
+
+            // calculate move direction and magnitude to pass to character
+            Vector3 camForward = new Vector3(_camTransform.forward.x, 0, _camTransform.forward.z).normalized;
             Vector3 move = (v * camForward + h * _camTransform.right) * jogSpeed;
 
 			if (sprintPressed && sprintAmount > 0)

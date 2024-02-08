@@ -2,39 +2,42 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using KovSoft.RagdollTemplate.Scripts.Charachter;
 
 public class GunWall : MonoBehaviour
 {
     InputActions input;
 
     public Transform[] weapons;
-    public float navigationDelay = 0.2f;
     public float zoomFOV;
+    public float popInOutTime;
+    public float popDistance;
 
     private int selectedWeapon = 0;
     private bool isNavigating = false;
+    private bool isSwitching;
 
     private CinemachineVirtualCamera playerCamera;
     private Transform previousFollow;
     private float previousFOV;
 
-    private bool isPoppingOut = false;
-    private bool isPoppingIn = false;
-    private Vector3[] originalWeaponPositions;
-
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            other.GetComponent<ThirdPersonControl>().horizontalLocked = true;
+
             // Player entered trigger zone
             StartNavigation();
         }
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            other.GetComponent<ThirdPersonControl>().horizontalLocked = false;
+
             // Player exited trigger zone
             StopNavigation();
         }
@@ -48,16 +51,10 @@ public class GunWall : MonoBehaviour
 
         input.Player.Move.performed += ctx =>
         {
-            if (isNavigating)
+            if (isNavigating && !isSwitching)
             {
                 float horizontalInput = ctx.ReadValue<Vector2>().x;
                 float verticalInput = ctx.ReadValue<Vector2>().y;
-
-                if (Mathf.Abs(horizontalInput) > 0.5f || Mathf.Abs(verticalInput) > 0.5f)
-                {
-                    // Reset the position of the previously selected weapon when moving to a different one
-                    ResetWeaponPosition(selectedWeapon);
-                }
 
                 if (horizontalInput > 0)
                 {
@@ -67,6 +64,9 @@ public class GunWall : MonoBehaviour
                 {
                     SelectPreviousWeapon();
                 }
+
+                // Vertical input for up down navigation (disabled so player can walk backwards out of zone)
+                /*
                 else if (verticalInput > 0)
                 {
                     SelectPreviousWeapon();
@@ -75,67 +75,39 @@ public class GunWall : MonoBehaviour
                 {
                     SelectNextWeapon();
                 }
+                */
             }
         };
 
         playerCamera = GameObject.FindGameObjectWithTag("playerCamera").GetComponent<CinemachineVirtualCamera>();
         previousFollow = playerCamera.Follow;
         previousFOV = playerCamera.m_Lens.FieldOfView;
-
-        // Save the original positions of all weapons
-        SaveOriginalWeaponPositions();
     }
 
-    void SaveOriginalWeaponPositions()
+    private void SelectNextWeapon()
     {
-        originalWeaponPositions = new Vector3[weapons.Length];
-        for (int i = 0; i < weapons.Length; i++)
-        {
-            originalWeaponPositions[i] = weapons[i].position;
-        }
+        StartCoroutine(PopInWeapon("Next"));
     }
 
-    void ResetWeaponPosition(int weaponIndex)
+    private void SelectPreviousWeapon()
     {
-        if (weaponIndex >= 0 && weaponIndex < weapons.Length)
-        {
-            weapons[weaponIndex].position = originalWeaponPositions[weaponIndex];
-        }
+        StartCoroutine(PopInWeapon("Previous"));
     }
 
-    void SelectNextWeapon()
-    {
-        ResetWeaponPosition(selectedWeapon);
-        selectedWeapon = (selectedWeapon + 1) % weapons.Length;
-        UpdateWeaponSelection();
-        StartCoroutine(PopInOutWeapon());
-    }
-
-    void SelectPreviousWeapon()
-    {
-        ResetWeaponPosition(selectedWeapon);
-        selectedWeapon = (selectedWeapon - 1 + weapons.Length) % weapons.Length;
-        UpdateWeaponSelection();
-        StartCoroutine(PopInOutWeapon());
-    }
-
-    void UpdateWeaponSelection()
+    private void UpdateWeaponSelection()
     {
         playerCamera.LookAt = weapons[selectedWeapon];
     }
 
-    // Coroutine to smoothly pop in and out the selected weapon
-    IEnumerator PopInOutWeapon()
+    // Coroutine to smoothly pop in the selected weapon
+    private IEnumerator PopInWeapon(string state)
     {
-        if (isPoppingOut || isPoppingIn) yield break; // Prevent starting multiple coroutines
-
-        isPoppingOut = true;
-
+        isSwitching = true;
         Transform selectedWeaponTransform = weapons[selectedWeapon];
-        Vector3 targetPosition = selectedWeaponTransform.position + new Vector3(5f, 0f, 0f);
+        Vector3 targetPosition = selectedWeaponTransform.position - new Vector3(popDistance, 0f, 0f);
 
         float elapsedTime = 0f;
-        float popDuration = 0.5f; // Adjust as needed
+        float popDuration = popInOutTime; // Adjust as needed
 
         Vector3 startPopPosition = selectedWeaponTransform.position;
 
@@ -149,42 +121,61 @@ public class GunWall : MonoBehaviour
 
         selectedWeaponTransform.position = targetPosition;
 
-        isPoppingOut = false;
+        if (state == "Next")
+        {
+            selectedWeapon = (selectedWeapon + 1) % weapons.Length;
+            UpdateWeaponSelection();
 
-        // Wait for a delay before popping in
-        yield return new WaitForSeconds(navigationDelay);
+            StartCoroutine(PopOutWeapon());
+        }
+        else if (state == "Previous")
+        {
+            selectedWeapon = (selectedWeapon - 1 + weapons.Length) % weapons.Length;
+            UpdateWeaponSelection();
 
-        isPoppingIn = true;
+            StartCoroutine(PopOutWeapon());
+        }
+    }
 
-        // Pop in
-        elapsedTime = 0f;
-        targetPosition = originalWeaponPositions[selectedWeapon];
+    // Coroutine to smoothly pop out the selected weapon
+    private IEnumerator PopOutWeapon()
+    {
+        Transform selectedWeaponTransform = weapons[selectedWeapon];
+        Vector3 targetPosition = selectedWeaponTransform.position + new Vector3(popDistance, 0f, 0f);
 
+        float elapsedTime = 0f;
+        float popDuration = popInOutTime; // Adjust as needed
+
+        Vector3 startPopPosition = selectedWeaponTransform.position;
+
+        // Pop out
         while (elapsedTime < popDuration)
         {
-            selectedWeaponTransform.position = Vector3.Lerp(targetPosition, startPopPosition, elapsedTime / popDuration);
+            selectedWeaponTransform.position = Vector3.Lerp(startPopPosition, targetPosition, elapsedTime / popDuration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        selectedWeaponTransform.position = startPopPosition;
+        selectedWeaponTransform.position = targetPosition;
 
-        isPoppingIn = false;
+        isSwitching = false;
     }
 
-    void StartNavigation()
+    private void StartNavigation()
     {
         isNavigating = true;
         playerCamera.Follow = null;
         playerCamera.LookAt = weapons[selectedWeapon];
         playerCamera.m_Lens.FieldOfView = zoomFOV;
+        StartCoroutine(PopOutWeapon());
     }
 
-    void StopNavigation()
+    private void StopNavigation()
     {
         isNavigating = false;
         playerCamera.Follow = previousFollow;
         playerCamera.LookAt = null;
         playerCamera.m_Lens.FieldOfView = previousFOV;
+        StartCoroutine(PopInWeapon(""));
     }
 }
