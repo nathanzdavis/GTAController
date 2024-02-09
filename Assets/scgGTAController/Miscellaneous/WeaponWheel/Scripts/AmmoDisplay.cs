@@ -26,7 +26,7 @@ namespace GTAWeaponWheel.Scripts
                 if(_text == null || WeaponManager.instance == null || WeaponManager.instance.CurrentWeapon == null)
                     return;
 
-                _text.text = WeaponManager.instance.CurrentWeapon.bulletsInMag + "/" +
+                _text.text = WeaponManager.instance.CurrentWeapon.bulletsInMag + "/<color=#6B6C64>" +
                              WeaponManager.instance.CurrentWeapon.totalBullets;
 
                 if (WeaponManager.instance.CurrentWeapon.bulletsInMag > 0)

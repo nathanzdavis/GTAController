@@ -14996,8 +14996,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5826566966696960869}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.52810407, y: -0.47021905, z: 0.52810425, w: 0.47021917}
+  m_LocalPosition: {x: -0.0656, y: 0.241, z: 0.0135}
   m_LocalScale: {x: 0.61069256, y: 0.6106924, z: 0.6106926}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15010,7 +15010,7 @@ Transform:
   - {fileID: 4864092216997308272}
   m_Father: {fileID: 0}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 96.63699, y: -90, z: 0}
 --- !u!95 &5826566966687436961
 Animator:
   serializedVersion: 4
@@ -15048,7 +15048,16 @@ MonoBehaviour:
   totalBullets: 2000
   bulletsPerMag: 30
   bulletsInMag: 0
+  damage: 15
+  accuracy: 65
+  fireRate: 0.15
+  fireRateStat: 25
+  range: 95
+  value: 0
+  buyTitle: 
+  description: 
   weaponIcon: {fileID: 21300000, guid: b770dd2a4a8829644b1b70feb5499ede, type: 3}
+  spawnablePrefab: {fileID: 5826566966696960869}
   anim: {fileID: 0}
   orot: {fileID: 0}
   reloading: 0
@@ -15085,8 +15094,6 @@ MonoBehaviour:
   cycleTimeSemiAuto: 0
   reloadTime: 1.8
   grenadeTime: 0
-  fireRate: 0.15
-  Damage: 25
   aimPosition: {x: 0.4, y: -0.1, z: 0}
   holdingHandOffsetRot: {x: 0, y: 0, z: 0}
   mainHandTransform: {fileID: 0}

@@ -69,7 +69,7 @@ Transform:
   m_Children:
   - {fileID: 6531038386666363871}
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &209864054368612196
 Animator:
@@ -169,7 +169,7 @@ MonoBehaviour:
   regenSpeed: 0.2
   dropItem: 1
   item: {fileID: 3727394898321221239, guid: 0f9fd49416a0288499ba12fae1549e71, type: 3}
-  dropChance: 25
+  dropChance: 100
   amountMin: 15
   amountMax: 1500
 --- !u!114 &209864054368612192
@@ -195,6 +195,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c1b69cce852614542a279ef1a1eabd72, type: 3}
   - {fileID: 8300000, guid: 16bd6f7fc129de648a9f63cb57b3e907, type: 3}
   chanceToPlayScream: 25
+  dontPatrol: 0
 --- !u!82 &4869335481631412327
 AudioSource:
   m_ObjectHideFlags: 0

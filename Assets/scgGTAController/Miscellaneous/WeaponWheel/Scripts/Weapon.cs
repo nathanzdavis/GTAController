@@ -14,7 +14,16 @@ namespace GTAWeaponWheel.Scripts
         public int totalBullets;
         public int bulletsPerMag;
         public int bulletsInMag;
+        public int damage;
+        public int accuracy;
+        public float fireRate;
+        public int fireRateStat;
+        public int range;
+        public int value;
+        public string buyTitle;
+        public string description;
         public Sprite weaponIcon;
+        public GameObject spawnablePrefab;
 
         [HideInInspector] public Animator anim;
         [HideInInspector] public OffsetRotation orot;
@@ -34,13 +43,6 @@ namespace GTAWeaponWheel.Scripts
 
                 WeaponWheel.instance.wheels[index].wheel.transform.GetChild(0).gameObject.SetActive(true);
                 WeaponWheel.instance.wheels[index].wheel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = weaponIcon;
-            }
-            else if (!string.IsNullOrEmpty(weaponName))
-            {
-                WeaponWheel.instance.wheels[index].wheel.transform.GetChild(0).gameObject.SetActive(true);
-                WeaponWheel.instance.wheels[index].wheel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = weaponIcon;
-                WeaponWheel.instance.wheels[index].wheel.transform.GetChild(1).gameObject.SetActive(true);
-                WeaponWheel.instance.wheels[index].wheel.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = totalBullets.ToString();
             }
         }
     }

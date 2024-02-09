@@ -3,16 +3,22 @@ using UnityEngine;
 
 public class MoneyManager : MonoBehaviour
 {
-    private int totalMoney = 0;
-    private HudController hc;
     public float changedMoneyHideTime;
+    public int totalMoney = 0;
+
+    public static MoneyManager instance;
+    private HudController hc;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
         hc = HudController.instance;
-
         hc.changedMoney.text = "";
-        hc.totalMoney.text = "$0";
+        hc.totalMoney.text = "$" + totalMoney;
     }
 
     public void ChangeMoney(int amount)
@@ -30,12 +36,14 @@ public class MoneyManager : MonoBehaviour
         }
         else
         {
-            hc.changedMoney.color = Color.red;
-            hc.changedMoney.text = "-$" + amount;
+            hc.changedMoney.color = new Color(.9f, .31f, .32f);
+            hc.changedMoney.text = "-$" + Mathf.Abs(amount);
+
+            CancelInvoke("ChangedMoneyHide");
+            Invoke("ChangedMoneyHide", changedMoneyHideTime);
         }
 
-        hc.totalMoney.text = "$" + totalMoney.ToString();
-       
+        hc.totalMoney.text = "$" + totalMoney.ToString(); 
     }
 
     private void ChangedMoneyHide()

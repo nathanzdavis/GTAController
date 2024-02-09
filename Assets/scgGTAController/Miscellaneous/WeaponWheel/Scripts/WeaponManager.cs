@@ -15,6 +15,7 @@ namespace GTAWeaponWheel.Scripts
         public static WeaponManager instance;
 
         public int equippedWeapon;
+        public Transform equipHand;
 
         private void Start()
         {
@@ -48,6 +49,17 @@ namespace GTAWeaponWheel.Scripts
                     Weapons[i].gameObject.SetActive(true);
                     m_CurrentWeapon = Weapons[i];
                 }
+            }
+        }
+
+        public void GiveWeapon(GameObject weapon)
+        {
+            if (!equipHand.Find(weapon.name))
+            {
+                GameObject weaponInstance = Instantiate(weapon, equipHand);
+                m_CurrentWeapon = Weapons[weaponInstance.GetComponent<Weapon>().index];
+
+                Weapons[weaponInstance.GetComponent<Weapon>().index] = weaponInstance.GetComponent<Weapon>();
             }
         }
     }

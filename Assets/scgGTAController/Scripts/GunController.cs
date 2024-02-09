@@ -74,10 +74,6 @@ namespace scgGTAController
         [Header("Timing")]
         public float reloadTime;
         public float grenadeTime;
-        public float fireRate;
-
-        [Header("Damage")]
-        public int Damage;
 
         [Header("Aiming")]
         public Vector3 aimPosition;
@@ -125,6 +121,11 @@ namespace scgGTAController
             }
 
             transform.root.gameObject.GetComponent<HandIK>().targetPoint = leftHandHoldPoint;
+
+            WeaponWheel.instance.wheels[index].wheel.transform.GetChild(0).gameObject.SetActive(true);
+            WeaponWheel.instance.wheels[index].wheel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = weaponIcon;
+            WeaponWheel.instance.wheels[index].wheel.transform.GetChild(1).gameObject.SetActive(true);
+            WeaponWheel.instance.wheels[index].wheel.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = totalBullets.ToString();
         }
 
         private void OnDisable()
@@ -179,7 +180,7 @@ namespace scgGTAController
             bulletsInMag = bulletsPerMag;
             originalCamPos = mainCam.transform.localPosition;
 
-            originalCamFov = virtualCam.m_Lens.FieldOfView;
+            originalCamFov = 60;
         }
 
         private void Update()
@@ -393,6 +394,7 @@ namespace scgGTAController
             }
             else
             {
+                print(originalCamFov);
                 virtualCam.m_Lens.FieldOfView = originalCamFov;
                 mainCam.transform.localPosition = originalCamPos;
             }
@@ -452,7 +454,7 @@ namespace scgGTAController
 
             //Spawn bullet from the shoot point position, the true tip of the gun
             tempBullet = Instantiate(Bullet, mainCam.transform.GetChild(0).transform.position, mainCam.transform.GetChild(0).transform.rotation) as GameObject;
-            tempBullet.GetComponent<RegisterHit>().damage = Damage;
+            tempBullet.GetComponent<RegisterHit>().damage = damage;
 
             //Orient it
             tempBullet.transform.Rotate(Vector3.left * 90);
